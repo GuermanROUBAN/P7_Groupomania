@@ -9,10 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idUSERS: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {//pour notre association on modifie idUSERS
+          model: 'Users',
+          key:'id' // identifiant de l'utilisateur
+        }
       },
       idPOSTS: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {//pour notre association on modifie idUSERS
+          model: 'Posts',
+          key:'id' // identifiant de l'utilisateur
+        }
       },
       comment: {
         type: Sequelize.STRING

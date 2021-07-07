@@ -9,15 +9,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idUSERS: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {//pour notre association on modifie idUSERS
+          model: 'Users',
+          key:'id' // identifiant de l'utilisateur
+        }
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       attachement: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
