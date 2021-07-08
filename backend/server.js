@@ -1,6 +1,9 @@
 // Imports
 let express = require('express');
 
+/* récupération de l'application express */
+const app = require('./app');
+
 // Instantiate server
 let server = express();
 
