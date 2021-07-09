@@ -25,4 +25,4 @@ app.use('/api/auth', userRoute);
 
 /* .json - méthode de l'objet bodyParser qui transforme le corps de la requête en objet JS*/
 
-module.exports = app;
+module.exports = app; // export vers server
