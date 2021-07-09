@@ -5,11 +5,13 @@ const sequelize = require('../database_connection');
 
 const { Model, DataTypes } = require('sequelize');
 
+
+// TODO > Controle Associations
 class User extends Model { // user c'est le model
-  // static associate(models) { // fonction static
-  //   // define association here
-  //   models.User.hasMany(models.Post, models.Comment);
-  // }
+  static associate(models) { // fonction static
+    // define association here
+  models.User.hasMany(models.Post, models.Comment);
+  }
 };
 User.init({
   email: {
