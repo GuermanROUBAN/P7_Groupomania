@@ -1,13 +1,12 @@
-/*
 const express = require('express');
-
 const router = express.Router();
+const userCtrl = require('../controllers/user');
 
-const userCtrl = require('../controllers/user')
+const auth = require('../middleware/auth');
 
-// Ce sont des requetes post car le F-e va envoyer des informations
+// ROUTES //
+
 router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login)
+router.post('/login', userCtrl.login);
 
 module.exports = router;
-*/

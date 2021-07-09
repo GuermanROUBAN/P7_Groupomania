@@ -1,4 +1,3 @@
-/*
 
 // Plugin password-validator permet de controler graca au passwordSchema les caracteres requis pour le mot de passe
 
@@ -29,4 +28,3 @@ passwordSchema
 // => [ 'min', 'uppercase', 'digits' ]
 
 module.exports = passwordSchema;
-*/

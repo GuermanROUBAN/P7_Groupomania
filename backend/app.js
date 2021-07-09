@@ -18,6 +18,8 @@ app.use((req, res, next) => {
     next();
 });
 
+const userRoute = require('./routes/user');
+app.use('/api/auth', userRoute);
 
 /* .json - méthode de l'objet bodyParser qui transforme le corps de la requête en objet JS*/
 app.use(bodyParser.json());

@@ -1,5 +1,5 @@
 
-/*
+
 const jwt = require('jsonwebtoken'); // permet de securiser les requettes
 
 module.exports = (req, res, next) => {
@@ -16,4 +16,3 @@ module.exports = (req, res, next) => {
         res.status(401).json({error: error | 'Requête non authentifiée'});
     }
 }
-*/
