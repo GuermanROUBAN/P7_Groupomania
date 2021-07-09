@@ -3,8 +3,6 @@
 // On aura besoin du modele de cryptage pour les mots de passe npm install --save bcrypt
 const bcrypt = require('bcrypt'); //on l'importe ici
 
-const sha256 = require('sha256');
-
 // On aura besoin de npm install --save jsonwebtoken
 const jwt = require('jsonwebtoken'); // on l'importe ici
 
@@ -30,17 +28,20 @@ exports.signup = (req, res, next) => {
 		}).then((data) => {
 			console.log(data)
 			if (data === 0) {
-				let hash = sha256(req.body.password)
-				const user = new User({// notre modele mangoose va créér un nouveau user
-					username: req.body.username,
-					email: emailHash,
-					// cryptage du mot de passe email:req.body.email,
-					password: hash,  // on va enregistrer le MP de la ligne l.17
-					isAdmin: false,
-				});
-				user.save() // on enregistre dans la BD
-					.then(() => res.status(201).json({ message: 'Utilisateur créé !' })) // 201 pour création de ressources
-					.catch(error => res.status(400).json({ error }));
+				bcrypt.hash(req.body.password, 10) // on va commencer par Hasher le MP avec fon assync/ 10 trs de hashage
+					.then(hash => { // on va recuperer le hash du MP et l'enregistrer comme le nv user dans la BD
+						const user = new User({// notre modele mangoose va créér un nouveau user
+							username: req.body.username,
+							email: emailHash,
+							// cryptage du mot de passe email:req.body.email,
+							password: hash,  // on va enregistrer le MP de la ligne l.17
+							isAdmin: false,
+						});
+						user.save() // on enregistre dans la BD
+							.then(() => res.status(201).json({ message: 'Utilisateur créé !' })) // 201 pour création de ressources
+							.catch(error => res.status(400).json({ error }));
+					})
+					.catch(error => res.status(500).json({ error }))
 			} else {
 				return res.status(400).json({ message: ' email utilisateur déjà existant !' })
 			}
@@ -60,19 +61,21 @@ exports.login = (req, res, next) => {
 			if (!user) { // si email pas bon on renvoie une erreur
 				return res.status(401).json({ error: "Utilisateur non trouvé !" });
 			}// Si trouvé alors 
-			let hash = sha256(req.body.password)
-			if (user.password === hash) {
-				res.status(200).json({ // si valable (true) on va renvoyer au F-e un id et un token d'authentification
-					userId: user._id,
-					token: jwt.sign(
-						{ userId: user._id },
-						`${process.env.TOKEN}`,
-						{ expiresIn: '24h' }
-					)
-				});
-			} else {
-				return res.status(401).json({ error: "Mot de passe incorrect !" });
-			}
+			bcrypt.compare(req.body.password, user.password) //on compare le MP entré avec le hash dans la BD
+				.then(valid => {
+					if (!valid) { // Si comparaison retourne false
+						return res.status(401).json({ error: "Mot de passe incorrect !" });
+					}
+					res.status(200).json({ // si valable (true) on va renvoyer au F-e un id et un token d'authentification
+						userId: user._id,
+						token: jwt.sign(
+							{ userId: user._id },
+							`${process.env.TOKEN}`,
+							{ expiresIn: '24h' }
+						)
+					});
+				})
+				.catch(error => res.status(500).json({ error }));
 		})
 		.catch(error => res.status(500).json({ error }));
 };
