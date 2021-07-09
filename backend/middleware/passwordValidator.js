@@ -9,7 +9,7 @@ const passwordSchema = new passwordValidator();
 // Add properties to it
 passwordSchema
 	.is().min(8)                                    // Minimum length 8
-	.is().max(50)                                  // Maximum length 100
+	.is().max(255)                                  // Maximum length 100
 	.has().uppercase(1)                              // Must have uppercase letters
 	.has().lowercase()                              // Must have lowercase letters
 	.has().digits(1)                                // Must have at least 2 digits

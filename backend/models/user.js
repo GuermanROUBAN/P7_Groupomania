@@ -1,6 +1,6 @@
 // 'use strict';
 
-let dbConnection = require('../database_connection');
+const sequelize = require('../database_connection');
 
 
 const { Model, DataTypes } = require('sequelize');
@@ -30,7 +30,7 @@ User.init({
     allowNull:false //Json
   }, 
 }, {
-  dbConnection, // on renvoi à la BDD
+  sequelize, // on renvoi à la BDD
   modelName: 'User',
 });
 

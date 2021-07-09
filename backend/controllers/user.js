@@ -18,24 +18,34 @@ const CryptoJS = require("crypto-js");
 
 // Enregistrement de nos utilisateurs
 exports.signup = (req, res, next) => {
+	console.log('Request')
 	if (passwordValidator.validate(req.body.password)) { // controle de la validation du mot de passe
-
-		bcrypt.hash(req.body.password, 10) // on va commencer par Hasher le MP avec fon assync/ 10 trs de hashage
-			.then(hash => { // on va recuperer le hash du MP et l'enregistrer comme le nv user dans la BD
-				var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
-				var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
-				const user = new User({// notre modele mangoose va créér un nouveau user
-					username: req.body.username,
-					email: CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString(),
-					// cryptage du mot de passe email:req.body.email,
-					password: hash,  // on va enregistrer le MP de la ligne l.17
-					isAdmin: req.body.isAdmin
-				});
-				user.save() // on enregistre dans la BD
-					.then(() => res.status(201).json({ message: 'Utilisateur créé !' })) // 201 pour création de ressources
-					.catch(error => res.status(400).json({ error }));
-			})
-			.catch(error => res.status(500).json({ error }))
+		let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
+		let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
+		let emailHash = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString()
+		User.count({
+			where: { email: emailHash }
+		}).then((data) => {
+			console.log(data)
+			if (data === 0) {
+				bcrypt.hash(req.body.password, 10) // on va commencer par Hasher le MP avec fon assync/ 10 trs de hashage
+					.then(hash => { // on va recuperer le hash du MP et l'enregistrer comme le nv user dans la BD
+						const user = new User({// notre modele mangoose va créér un nouveau user
+							username: req.body.username,
+							email: emailHash,
+							// cryptage du mot de passe email:req.body.email,
+							password: hash,  // on va enregistrer le MP de la ligne l.17
+							isAdmin: false,
+						});
+						user.save() // on enregistre dans la BD
+							.then(() => res.status(201).json({ message: 'Utilisateur créé !' })) // 201 pour création de ressources
+							.catch(error => res.status(400).json({ error }));
+					})
+					.catch(error => res.status(500).json({ error }))
+			} else {
+				return res.status(400).json({ message: ' email utilisateur déjà existant !' })
+			}
+		})
 	}
 	else {
 		return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un chiffre, une minuscule, une majuscule et être composé de 8 caractères minimum !' })
@@ -44,8 +54,8 @@ exports.signup = (req, res, next) => {
 
 // Connecter les utilisateurs existants
 exports.login = (req, res, next) => {
-	var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
-	var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
+	let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
+	let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
 	User.findOne({ email: CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString() }) // On recupere l'utilisateur dans la base qui correspond a l email entré
 		.then(user => {
 			if (!user) { // si email pas bon on renvoie une erreur

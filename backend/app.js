@@ -17,11 +17,12 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const userRoute = require('./routes/user');
 app.use('/api/auth', userRoute);
 
 /* .json - méthode de l'objet bodyParser qui transforme le corps de la requête en objet JS*/
-app.use(bodyParser.json());
 
 module.exports = app;
