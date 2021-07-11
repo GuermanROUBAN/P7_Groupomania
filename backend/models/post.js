@@ -1,31 +1,43 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      models.Post.belongsTo(models.User, { // post s'attache au user
-        foreigneKey: {
-          allowNull: false
-        }
-      })
-    }
+// 'use strict';
+const sequelize = require('../database_connection');
+
+const { Model, DataTypes } = require('sequelize');
+
+// TODO > Controle Associations
+class Post extends Model {
+  static associate(models) {
+    // define association here
+    models.Post.belongsTo(models.User, { // post s'attache au user
+      foreigneKey: { // ou la mettre?
+        allowNull: false
+      }
+    })
   };
-  Post.init({
-    idUSERS: DataTypes.INTEGER,
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    attachement: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Post',
-  });
-  return Post;
-};
+}
+Post.init({
+  idUSERS:
+  {
+    type: DataTypes.INTEGER,
+    allowNull: false //Json
+  },
+  title:
+  {
+    type: DataTypes.STRING,
+    allowNull: false //Json
+  },
+  content:
+  {
+    type: DataTypes.STRING,
+    allowNull: false //Json
+  },
+  attachement:
+  {
+    type: DataTypes.STRING,
+    allowNull: false //Json
+  }
+}, {
+  sequelize,
+  modelName: 'Post',
+});
+
+module.exports = Post

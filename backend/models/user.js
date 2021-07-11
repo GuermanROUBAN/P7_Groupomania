@@ -1,10 +1,7 @@
 // 'use strict';
-
 const sequelize = require('../database_connection');
 
-
 const { Model, DataTypes } = require('sequelize');
-
 
 // TODO > Controle Associations
 class User extends Model { // user c'est le model
@@ -14,7 +11,8 @@ class User extends Model { // user c'est le model
   }
 };
 User.init({
-  email: {
+  email:
+  {
     type: DataTypes.STRING,
     allowNull:false //Json
   },
@@ -23,11 +21,13 @@ User.init({
     type: DataTypes.STRING,
     allowNull:false //Json
   },  
-  password: {
+  password:
+  {
     type: DataTypes.STRING,
     allowNull:false //Json
   },
-  isAdmin: {
+  isAdmin:
+  {
     type: DataTypes.BOOLEAN,
     allowNull:false //Json
   }, 

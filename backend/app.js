@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 const userRoute = require('./routes/user');
 app.use('/api/auth', userRoute);
+const postRoute = require('./routes/post')
+app.use('/api/post', postRoute);
 
 /* .json - méthode de l'objet bodyParser qui transforme le corps de la requête en objet JS*/
 

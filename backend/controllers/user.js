@@ -31,7 +31,7 @@ exports.signup = (req, res, next) => {
 			console.log(data)
 			if (data === 0) {
 				let hash = sha256(req.body.password)
-				const user = new User({// notre modele mangoose va créér un nouveau user
+				const user = new User({// notre modele sequelize va créér un nouveau user
 					username: req.body.username,
 					email: emailHash,
 					// cryptage du mot de passe email:req.body.email,
