@@ -16,13 +16,13 @@ router.post('/create', auth, postCtrl.create);
 router.put('/:id', auth, postCtrl.modifyPost);
 
 // Supprimer un post
-router.delete('/delete/:id', auth, postCtrl.deletePost);
+router.delete('/delete/:id', auth, postCtrl.deletePost); //
 
 // On Récupère un post spécifique
-//router.get('/:id', auth, postCtrl.getOnePost)
+router.get('/read/:id', postCtrl.getOnePost) // auth inutile car pas besoin d'etre logé pour voir un post
 
 // On va aller chercher la liste des posts dans la BD
-//router.get('/', auth, postCtrl.getAllPosts);
+router.get('/read-all-posts', postCtrl.getAllPosts); //auth inutile car pas besoin d'etre logé pour voir tous les posts
 
 
 

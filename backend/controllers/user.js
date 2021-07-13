@@ -55,8 +55,14 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
 	let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
 	let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
-	User.findOne({ email: CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString() }) // On recupere l'utilisateur dans la base qui correspond a l email entré
+	console.log(CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString())
+	User.findOne({// On recupere l'utilisateur dans la base qui correspond a l email entré
+		where: {
+			email: CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString()
+		}
+	})
 		.then(user => {
+			console.log(user)
 			if (!user) { // si email pas bon on renvoie une erreur
 				return res.status(401).json({ error: "Utilisateur non trouvé !" });
 			}// Si trouvé alors 
