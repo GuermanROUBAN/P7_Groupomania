@@ -97,7 +97,7 @@ exports.deletePost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
 
-	let postId = req.params.id;
+	let postId = req.params.id; // id apparait dans la ligne de la reqete
 
 	Post.findOne({
 		where: {

@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken'); // permet de securiser les requettes
 
 module.exports = (req, res, next) => {
-    console.log('middelwar started')
+    console.log('--ICI START MIDDLEWARE--')
     try { //
         const token = req.headers.authorization.split(' ')[1];
         console.log("token" + token)
@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
         }
     } catch (error) {
         console.log(error)
-        console.log('test reussi')
+        console.log('--ICI FIN MIDDLEWARE--')
         res.status(401).json({ error: error | 'Requête non authentifiée' });
     }
 }
