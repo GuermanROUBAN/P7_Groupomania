@@ -32,16 +32,16 @@ exports.modifyPost = (req, res, next) => {
 	let title = req.body.title;
 	let content = req.body.content;
 	let attachement = req.body.attachement;
-	let idPost = req.params.id;
-	let userId = req.body.userId
+	let idPost = req.params.id; // on capte l'id du post
+	let userId = req.body.userId // on capte l'id de l'utilisateur
 
-	Post.findOne({
+	Post.findOne({ // on cherche le poste avec le bon id
 		where: { id: idPost }
 	}).then(post => {
-		if (!post) {
+		if (!post) { // le poste existe t'il
 			return res.status(400).json({ "error": 'post non trouvé' })
 		}
-		if (userId === post.idUSERS) {
+		if (userId === post.idUSERS) { // on controle si l'id qui fait la requete correspond avec l'id de l'utilisateur dans le post
 			Post.update({
 				title: title,
 				content: content,
