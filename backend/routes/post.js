@@ -24,7 +24,7 @@ router.get('/read/:id', postCtrl.getOnePost) // auth inutile car pas besoin d'et
 // On va aller chercher la liste des posts dans la BD
 router.get('/read-all-posts', postCtrl.getAllPosts); //auth inutile car pas besoin d'etre logé pour voir tous les posts
 
-
+router.get('/users-posts/:id', postCtrl.getAllPostForUser);
 
 // Exports
 module.exports = router;
