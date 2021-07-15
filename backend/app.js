@@ -29,6 +29,8 @@ app.use('/api/post', postRoute);
 const commentRoute = require('./routes/comment');
 app.use('/api/comment', commentRoute);
 
+const adminRoute = require('./routes/admin');
+app.use('/api/admin', adminRoute);
 
 
 /* .json - méthode de l'objet bodyParser qui transforme le corps de la requête en objet JS*/
