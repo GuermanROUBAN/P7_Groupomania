@@ -13,5 +13,16 @@ let mutations = {
 	}
 }
 
+let actions = {
+	register(context) { //
+		setTimeout(() => {
+			context.commit('registerStart')
+		},
+			1000
+		)
+	}
+}
+
+
 // On exporte 
-export default {state, mutations}
+export default { state, mutations, actions }

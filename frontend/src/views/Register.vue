@@ -53,7 +53,7 @@ export default {
     // on analyse les methodes de notre page locole
     Submit() {
       // 1 methode locale
-      this.$store.commit("registerStart"); // on appelle la mutation de registerStart
+      this.$store.dispatch("register"); // on appelle l'action de register depuis Auth
     },
   },
 };

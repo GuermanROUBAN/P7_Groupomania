@@ -17,7 +17,8 @@ export default new Vuex.Store({
       
     }
   },
-  actions: {
+  actions: { // marchent d'une facon async (pour les grandes operations pour le Be)
+
   },
   modules: {
     auth // on demande a vuex de traiter le module auth
