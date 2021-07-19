@@ -22,7 +22,7 @@ const CryptoJS = require("crypto-js");
 // Enregistrement de nos utilisateurs
 
 exports.signup = (req, res, next) => { // on exporte la fonction vers route
-	console.log('-- ICI START Request --')
+	console.log(req.body)
 	if (passwordValidator.validate(req.body.password)) { // controle de la validation du mot de passe
 		let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
 		let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
@@ -41,15 +41,22 @@ exports.signup = (req, res, next) => { // on exporte la fonction vers route
 					isAdmin: false, // il n'est pas l'admin
 				});
 				user.save() // on enregistre dans la BD
-					.then(() => res.status(201).json({ message: 'Utilisateur créé !' })) // 201 pour création de ressources
-					.catch(error => res.status(400).json({ error }));
+					.then(() => res.status(201).json({
+						user: user, // on transfere l'user au front pour aller dans current user
+						token: jwt.sign( // le token
+							{ userId: user.id },
+							`${process.env.TOKEN}`,
+							{ expiresIn: '24h' }
+						)
+					})) // 201 pour création de ressources
+					.catch(error => res.status(400).json({ error: error }));
 			} else {
-				return res.status(400).json({ message: ' email utilisateur déjà existant !' })
+				return res.status(400).json({ error: ' email utilisateur déjà existant !' })
 			}
 		})
 	}
 	else {
-		return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un chiffre, une minuscule, une majuscule et être composé de 8 caractères minimum !' })
+		return res.status(400).json({ error: 'Le mot de passe doit contenir au moins un chiffre, une minuscule, une majuscule et être composé de 8 caractères minimum !' })
 	}
 };
 
