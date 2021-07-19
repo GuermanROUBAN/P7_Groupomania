@@ -12,6 +12,7 @@ exports.create = (req, res, next) => {
 	let content = req.body.content;
 	let attachement = req.body.attachement;
 
+	// null ne doit pas etre vide, c'est un number
 	if (idUSERS === null || title === "" || content === "" || attachement === "") {
 		return res.status(400).json({ 'error': 'Missing parameters > postCtrl.js(1)' });
 	}

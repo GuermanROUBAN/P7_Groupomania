@@ -2,17 +2,6 @@
   <div>
     <form v-on:submit="Submit">
       <div class="mb-3">
-        <label for="exampleInputUsername" class="form-label">Username</label>
-        <input
-          v-model="username"
-          type="text"
-          class="form-control"
-          id="exampleInputUsername"
-          aria-describedby="usernameHelp"
-          required
-        />
-      </div>
-      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input
           v-model="email"
@@ -76,10 +65,10 @@ export default {
       // on appelle l'action de register depuis Aut
       // vous envoyez l'action pour exécuter une tâche propager/dispatch
 
-      if (isEmail(this.email)) { // controle de l'email grace à @rearguard/is-email
-        this.$store.dispatch("register", {
+      if (isEmail(this.email)) {
+        // controle de l'email grace à @rearguard/is-email
+        this.$store.dispatch("login", { // on appelle l'action login
           // appel action
-          username: this.username,
           email: this.email,
           password: this.password,
         });
@@ -89,9 +78,9 @@ export default {
     },
   },
   data() {
+    // variante locale
     // comment ?
     return {
-      username: "",
       email: "",
       password: "",
     };
