@@ -33,8 +33,9 @@ function login(credentials) { // données pour entrer usename email password
 	})
 }
 
-
-
+// router.delete('/delete/:id', userCtrl.deleteUser);
+// router.get('/', userCtrl.getOneUser);
+// router.get('/users', userCtrl.getAllUsers);
 
 
 export default { register, login }

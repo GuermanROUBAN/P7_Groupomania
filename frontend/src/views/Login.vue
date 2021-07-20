@@ -67,11 +67,19 @@ export default {
 
       if (isEmail(this.email)) {
         // controle de l'email grace à @rearguard/is-email
-        this.$store.dispatch("login", { // on appelle l'action login
-          // appel action
-          email: this.email,
-          password: this.password,
-        });
+        this.$store
+          .dispatch("login", {
+            // on appelle l'action login
+            // appel action
+            email: this.email,
+            password: this.password,
+          })
+          .then(() => {
+            // quand le promise action sera OK la fonction demarrera
+            this.$router.push({
+              name: "Home",
+            }); // on envoi le user sur la page Home
+          });
       } else {
         alert("Le champs email est incorrect ex: test@test.fr");
       }

@@ -4,6 +4,7 @@ import Home from '@/views/Home'
 import Register from '@/views/Register' // import de notre page Register
 import Login from '@/views/Login'
 import About from '@/views/About'
+// import Post from '@/views/Post'
 
 Vue.use(VueRouter)
 
@@ -30,7 +31,12 @@ const routes = [
     path: '/login',
     name: 'Login', // nom de l'url pour faire des liens
     component: Login // c'est notre page 
-  }
+  },
+  {
+    path: '/',
+    name: 'Home', // nom de l'url pour faire des liens
+    component: Home // c'est notre page 
+  },
 ]
 
 const router = new VueRouter({
