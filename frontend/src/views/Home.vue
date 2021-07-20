@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>PRIVET</p>
+    <p>FOR POSTS PAGE</p>
   </div>
 </template>
 
