@@ -32,11 +32,6 @@ const routes = [
     name: 'Login', // nom de l'url pour faire des liens
     component: Login // c'est notre page 
   },
-  {
-    path: '/',
-    name: 'Home', // nom de l'url pour faire des liens
-    component: Home // c'est notre page 
-  },
 ]
 
 const router = new VueRouter({

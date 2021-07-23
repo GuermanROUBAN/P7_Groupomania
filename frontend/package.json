@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@rearguard/is-email": "^1.7.1",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "node-fetch": "^2.6.1",
     "vue": "^2.6.11",

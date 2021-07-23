@@ -1,12 +1,18 @@
-// Imports
+// // Imports
 
 
 // const fetch = require('node-fetch')
 
+// function displayPosts() { // données pour entrer usename email password
+// 	console.log()
+// 	// Le fetch prend 4 options
 
-// il faudra envoyer la clé TOKEN dans Headers
-// il serait bien de mettre la clé automatiquement dans le headers
+// 	return fetch('http://127.0.0.1:3000/api/post/read-all-posts')
+// }
 
+// // il faudra envoyer la clé TOKEN dans Headers
+// // il serait bien de mettre la clé automatiquement dans le headers
+// export default { displayPosts }
 
 //---------------------------------------------------
 
@@ -32,4 +38,16 @@
 // router.get('/users-posts/:id', postCtrl.getAllPostForUser);
 
 
-// export default {  }
+
+import axios from './instance'
+
+// import { URL } from './info'
+
+export default {
+	getPosts() {
+		return axios({
+			url: 'http://127.0.0.1:3000/api/post/read-all-posts',
+			method: 'get'
+		})
+	}
+}

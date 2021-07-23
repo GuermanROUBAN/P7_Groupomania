@@ -1,12 +1,29 @@
-// Imports
-// import postApi from '@/api/post'
+import postApi from "../../api/post";
 
-// let state = {}
-// let mutations = {}
-// let actions = {}
+export default {
+	namespaced: true,
 
+	state: {
+		posts: []
+	},
 
-// //postApi = null
+	mutations: {
+		setPosts(state, { posts }) {
+			state.posts = posts
+		}
+	},
 
-// // On exporte
-// export default { state, mutations, actions }
+	actions: {
+		async getPosts({ commit }) {
+			try {
+				let res = await postApi.getPosts()
+				console.log(res);
+
+				commit('setPosts', res.data)
+				// req
+			} catch (err) {
+				console.log(err)
+			}
+		}
+	}
+}
