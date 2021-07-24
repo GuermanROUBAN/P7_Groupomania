@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 // On aura besoin de npm install --save jsonwebtoken
 // const jwt = require('jsonwebtoken'); // on l'importe ici
@@ -118,9 +119,38 @@ exports.getOnePost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 	Post.findAll()
-		.then((posts) => res.status(200).json({
-			posts
-		}))
+		.then((posts) => {
+			const copyPosts = [...posts];
+			User.findAll().then((users) => {
+				for (const post of copyPosts) {
+					for (const user of users) {
+						if (user.id === post.idUSERS) {
+							post.username = user.username;
+							break;
+						}
+					}
+				}
+				const newMapPosts = copyPosts.map((copyPost) => {
+					return {
+						idUSERS: copyPost.idUSERS,
+						title: copyPost.title,
+						content: copyPost.content,
+						attachement: copyPost.attachement,
+						username: copyPost.username,
+						createdAt: copyPost.createdAt
+					}
+				})
+
+				console.log(newMapPosts);
+
+				res.status(200).json({
+					posts: newMapPosts
+				})
+				res.status(200).json({
+					posts: copyPosts
+				})
+			})
+		})
 		.catch((err) => res.status(401).json({
 			err
 		}));

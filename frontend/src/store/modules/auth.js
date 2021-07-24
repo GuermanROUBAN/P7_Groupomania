@@ -20,7 +20,9 @@ let state = {
 	isLoggedIn: false,
 	currentUser: null, // Ici on va mettre notre objet
 	error: null, // ici on va mettre notre erreur 
-	token:""
+	token: "",
+	username: localStorage.getItem("username") || null // on prend le username dans LS
+
 }
 
 // Mutation de notre module qui vont modifier notre state
@@ -30,12 +32,13 @@ let mutations = { // pour les modifications d'etat
 	registerStart(state) { // la fonction recoit comme argument l'etat du state
 		state.isSubmitting = true // elle modifie la valeur et cela est le commit pour Register.vue , eteint le bouton
 	},
-	registerSuccess(state, {user, token}) { // on capte l'etat actuel et le user
+	registerSuccess(state, { user, token, username }) { // on capte l'etat actuel et le user
 		state.isSubmitting = false // Le bouton doit se debloquer alors meme qu'on a enregistre le post
 		state.isLoggedIn = true // l'utilisateur est arrivé
 		state.currentUser = user // on met le user actuel (l.60) dans le state
 		state.error = null
-		state.token=token
+		state.token = token
+		state.username = username
 	},
 	registerFailure(state, err) {
 		state.isSubmitting = false
@@ -63,6 +66,7 @@ let actions = {
 						// La mutation est actée, l'action commit
 						context.commit('registerSuccess', json.user) // on envoi le user dans les mutations
 						localStorage.setItem("token", json.token) // le token va dans le LS
+						localStorage.setItem("username", json.username)
 					})
 				} else {
 					response.json().then(json => {
@@ -96,6 +100,7 @@ let actions = {
 							// La mutation est actée, l'action commit
 							context.commit('registerSuccess', json) // on envoi le user dans les mutations, on appel tjr la meme mutation car elle nous est favorable
 							localStorage.setItem("token", json.token) // le token va dans le LS
+							localStorage.setItem("username", json.username)
 							resolve() // on a resolu la promise
 						})
 					} else {

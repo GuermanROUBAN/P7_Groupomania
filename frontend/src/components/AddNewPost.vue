@@ -1,11 +1,11 @@
 <template>
   <div class="addNewPost">
     <div class="container">
-      <!-- <div class="row">
-<div class="col">
-	<h1>POSTS</h1>
-</div>
-</div> -->
+      <div class="row">
+        <div class="col">
+          <h1>{{ $store.state.auth.username }}</h1>
+        </div>
+      </div>
       <form v-on:submit="Submit">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Title</label>
@@ -49,6 +49,11 @@
             <!-- au click on appel la methode Submit
 	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           </div>
+          <div class="col-12 col-lg-12">
+            <button @click="$emit('back')" type="button" class="btn btn-danger">Back to home</button>
+            <!-- au click on appel la methode Submit
+	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
+          </div>
         </div>
       </form>
     </div>
@@ -65,18 +70,20 @@ export default {
       attachement: "",
     };
   },
+  mounted() {
+    console.log(this.$store.state);
+  },
 };
 </script>
 
 <style>
 .addNewPost {
-	z-index:2;
+  z-index: 2;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   background: cadetblue;
-
 }
 </style>

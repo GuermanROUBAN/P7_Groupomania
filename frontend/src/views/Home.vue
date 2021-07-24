@@ -4,8 +4,11 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-12">
-          <AddNewPost />
-          <button type="button" class="btn btn-success">Add New Post</button>
+          <AddNewPost v-if="isOpen" @back="closeModal" />
+          <!-- false au depart et true apres method -->
+          <button @click="openModal" type="button" class="btn btn-success">
+            Add New Post
+          </button>
         </div>
       </div>
     </div>
@@ -24,10 +27,21 @@ export default {
     Post,
     AddNewPost, // Enregistrement du composant
   },
-  data(){
+  data() {
     return {
-      isOpen:false,
-    }
+      isOpen: false, // State intial
+    };
+  },
+  methods: {
+    openModal() {
+      console.log(this.isOpen); //false
+      this.isOpen = true;
+      console.log(this.isOpen); //true => vue reagira l.
+    },
+    closeModal() {
+      console.log("hahahahah");
+      this.isOpen = false;
+    },
   },
   mounted() {
     this.$store.dispatch("post/getPosts");

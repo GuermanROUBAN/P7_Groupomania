@@ -9,7 +9,7 @@
       <div class="col-12 col-lg-12">
         <div class="card">
           <div class="card-body">
-            <p class="card-text">{{ post.idUSERS }}</p>
+            <p class="card-text">{{ post.username }}</p>
             <p class="card-text">{{ post.createdAt }}</p>
             <p class="card-text">{{ post.updatedAt }}</p>
             <h5 class="card-title">{{ post.title }}</h5>

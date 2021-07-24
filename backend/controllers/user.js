@@ -84,8 +84,9 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 					token: jwt.sign( // le token
 						{ user: user },
 						`${process.env.TOKEN}`,
-						{ expiresIn: '24h' }
-					)
+						{ expiresIn: '24h' },
+					),
+					username: user.username
 				});
 			} else {
 				return res.status(401).json({ error: "Mot de passe incorrect !" });
