@@ -4,6 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-12">
+          <AddNewPost />
           <button type="button" class="btn btn-success">Add New Post</button>
         </div>
       </div>
@@ -15,10 +16,18 @@
 
 <script>
 import Post from "../components/Post.vue";
+import AddNewPost from "../components/AddNewPost.vue";
+
 export default {
   name: "Home",
   components: {
     Post,
+    AddNewPost, // Enregistrement du composant
+  },
+  data(){
+    return {
+      isOpen:false,
+    }
   },
   mounted() {
     this.$store.dispatch("post/getPosts");
