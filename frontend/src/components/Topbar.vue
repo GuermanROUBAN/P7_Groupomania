@@ -55,6 +55,7 @@
             >
           </li>
         </ul>
+
         <!-- <form class="d-flex">
           <input
             class="form-control me-2"
@@ -64,6 +65,15 @@
           />
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-12">
+            <button type="button" class="btn btn-warning">
+              Delete my Account
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>

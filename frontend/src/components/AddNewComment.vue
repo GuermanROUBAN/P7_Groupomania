@@ -9,16 +9,16 @@
       <div class="col-12 col-lg-12">
         <div class="card">
           <div class="card-body">
-            <p class="card-text">{{ post.idUSERS }}</p>
-            <p class="card-text">{{ post.createdAt }}</p>
-            <p class="card-text">{{ post.updatedAt }}</p>
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <p class="card-text" src="">{{ post.attachement }}</p>
+            <p class="card-text"></p>
+            <p class="card-text"></p>
+            <p class="card-text"></p>
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+            <p class="card-text"></p>
           </div>
           <div class="row">
             <div class="col-12 col-lg-12">
-              <button type="button" class="btn btn-info">Show Comments</button>
+              <button type="button" class="btn btn-info">Send</button>
               <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
             </div>
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: "Post",
+  name: "AddNewComment",
   props: {
     post: {},
   },
