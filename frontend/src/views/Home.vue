@@ -4,7 +4,11 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-12">
-          <AddNewPost v-if="isOpen" @back="closeModal" />
+          <AddNewPost
+            v-if="isOpen"
+            @back="closeModal"
+            @postCreated="onPostCreated"
+          />
           <!-- false au depart et true apres method -->
           <button @click="openModal" type="button" class="btn btn-success">
             Add New Post
@@ -41,6 +45,9 @@ export default {
     closeModal() {
       console.log("hahahahah");
       this.isOpen = false;
+    },
+    onPostCreated() {
+      this.$store.dispatch("post/getPosts");
     },
   },
   mounted() {

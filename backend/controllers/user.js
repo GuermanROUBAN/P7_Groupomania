@@ -82,7 +82,7 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 				res.status(200).json({ // si valable (true) on va renvoyer au F-e un id et un token d'authentification
 					userId: user.id, // renvoi l'id de l'utilisateur
 					token: jwt.sign( // le token
-						{ user: user },
+						{ userId: user.id },
 						`${process.env.TOKEN}`,
 						{ expiresIn: '24h' },
 					),

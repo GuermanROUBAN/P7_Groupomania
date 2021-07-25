@@ -8,7 +8,6 @@ let state = {
 let mutations = {
 }
 
-
 let actions = {
 	createNewPost(context, credentials) {
 		return new Promise((resolve) => {
@@ -19,13 +18,9 @@ let actions = {
 			// console.log("BOOOOOMMM");
 			postApi.createNewPost(credentials)
 				.then(response => {
-					if (response.ok) {
-						response.json().then(json => { // le json c'est la reponse de notre serveur (user, token)
-							console.log('createNewPost response', json);
+					console.log('createNewPost response', response);
 
-							resolve()
-						})
-					}
+					resolve();
 				})
 		})
 	}

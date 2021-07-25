@@ -78,14 +78,17 @@ export default {
   },
   methods: {
     addNewPost() {
-      this.$store.dispatch("createNewPost", {
-        userId: this.$store.state.auth.userId, // on reception userId de auth state
-        title: this.title,
-        content: this.content,
-        attachement: this.attachement,
-      });
-
-      this.$emit("back");
+      this.$store
+        .dispatch("createNewPost", {
+          userId: this.$store.state.auth.userId, // on reception userId de auth state
+          title: this.title,
+          content: this.content,
+          attachement: this.attachement,
+        })
+        .then(() => {
+          this.$emit("postCreated");
+          this.$emit("back");
+        });
     },
   },
   data() {
