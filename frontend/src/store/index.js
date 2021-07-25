@@ -4,6 +4,7 @@ import auth from '@/store/modules/auth'
 import post from '@/store/modules/post'
 import comment from '@/store/modules/comment'
 import admin from '@/store/modules/admin'
+import addpost from '@/store/modules/addpost'
 
 
 Vue.use(Vuex)
@@ -16,7 +17,7 @@ export default new Vuex.Store({
   // State  contient notre data store global ;
 
   state: { // ici que des champs
-  //  counter: 0
+    //  counter: 0
   },
 
   // La deuxième clé définie dans le store est appelée mutation.Comme son nom l'indique, 
@@ -44,5 +45,6 @@ export default new Vuex.Store({
     post,
     admin,
     comment,
+    addpost,
   }
 })

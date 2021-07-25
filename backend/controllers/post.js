@@ -9,6 +9,7 @@ const User = require('../models/user');
 exports.create = (req, res, next) => {
 
 	let idUSERS = req.body.userId;
+	console.log('HOHOHOHO', idUSERS);
 	let title = req.body.title;
 	let content = req.body.content;
 	let attachement = req.body.attachement;
@@ -79,8 +80,8 @@ exports.deletePost = (req, res, next) => {
 		if (!post) {
 			return res.status(400).json({ "error": 'Post non trouvé' })
 		}
-		console.log(userId)
-		console.log(post.idUSERS);
+		//console.log(userId)
+		//console.log(post.idUSERS);
 		if (Number(userId) === Number(post.idUSERS)) {
 			Post.destroy({
 				where: {
@@ -141,7 +142,7 @@ exports.getAllPosts = (req, res, next) => {
 					}
 				})
 
-				console.log(newMapPosts);
+				//console.log(newMapPosts);
 
 				res.status(200).json({
 					posts: newMapPosts

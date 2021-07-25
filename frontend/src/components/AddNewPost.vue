@@ -6,7 +6,7 @@
           <h1>{{ $store.state.auth.username }}</h1>
         </div>
       </div>
-      <form v-on:submit="Submit">
+      <form v-on:submit="addNewPost">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Title</label>
           <input
@@ -50,7 +50,10 @@
 	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           </div>
           <div class="col-12 col-lg-12">
-            <button @click="$emit('back')" type="button" class="btn btn-danger">Back to home</button>
+            <button @click="$emit('back')" type="button" class="btn btn-danger">
+              Back to home
+            </button>
+            <app-error :error="error" v-if="error" />
             <!-- au click on appel la methode Submit
 	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           </div>
@@ -61,8 +64,30 @@
 </template>
 
 <script>
+import AppError from "@/components/Error";
 export default {
-  name: "AddNewPost",
+  name: "AddNewPost", // nom de la page
+  computed: {
+    isSubmittingPost() {
+      // variable interactive de submutting sous forme de fonction
+      return this.$store.state.post.isSubmittingPost; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting
+    },
+    error() {
+      return this.$store.state.auth.error; // l.22 dans modules auth (local erreur fait appel a globale error)
+    },
+  },
+  methods: {
+    addNewPost() {
+      this.$store.dispatch("createNewPost", {
+        userId: this.$store.state.auth.userId, // on reception userId de auth state
+        title: this.title,
+        content: this.content,
+        attachement: this.attachement,
+      });
+
+      this.$emit("back");
+    },
+  },
   data() {
     return {
       title: "",
@@ -70,8 +95,12 @@ export default {
       attachement: "",
     };
   },
+
   mounted() {
     console.log(this.$store.state);
+  },
+  components: {
+    AppError,
   },
 };
 </script>
