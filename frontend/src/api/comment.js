@@ -1,6 +1,6 @@
 // Imports
 
-const fetch = require('node-fetch')
+import axios from './instance'
 
 // // Enregistrement des post dans la base de donnée
 // router.post('/create', auth, commentCtrl.create);
@@ -23,7 +23,8 @@ const fetch = require('node-fetch')
 // router.get('/users-comments/:id', commentCtrl.getAllCommentForUser);
 
 
+function getCommentsForPost(postId) {
+	return axios.get(`http://127.0.0.1:3000/api/comment/posts-comments/${postId}`);
+}
 
-
-
-// export default {  }
+export default { getCommentsForPost }

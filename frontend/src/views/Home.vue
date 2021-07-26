@@ -16,7 +16,12 @@
         </div>
       </div>
     </div>
-    <Post v-for="item in $store.state.post.posts" :key="item.id" :post="item" />
+    <Post
+      v-for="item in $store.state.post.posts"
+      :key="item.id"
+      :post="item"
+      @postDeleted="onPostDeleted"
+    />
   </div>
 </template>
 
@@ -38,20 +43,29 @@ export default {
   },
   methods: {
     openModal() {
-      console.log(this.isOpen); //false
+      console.log(this.isOpen); // false
       this.isOpen = true;
-      console.log(this.isOpen); //true => vue reagira l.
+      console.log(this.isOpen); // true
     },
     closeModal() {
-      console.log("hahahahah");
       this.isOpen = false;
     },
     onPostCreated() {
+      console.log("onPostCreated");
+
+      this.getPosts();
+    },
+    onPostDeleted() {
+      console.log("onPostDeleted");
+
+      this.getPosts();
+    },
+    getPosts() {
       this.$store.dispatch("post/getPosts");
     },
   },
   mounted() {
-    this.$store.dispatch("post/getPosts");
+    this.getPosts();
     console.log(this.$store);
   },
 };

@@ -138,7 +138,8 @@ exports.getAllPosts = (req, res, next) => {
 						content: copyPost.content,
 						attachement: copyPost.attachement,
 						username: copyPost.username,
-						createdAt: copyPost.createdAt
+						createdAt: copyPost.createdAt,
+						id: copyPost.id
 					}
 				})
 

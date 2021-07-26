@@ -48,8 +48,7 @@ const { isEmail } = require("@rearguard/is-email");
 export default {
   name: "Register", // nom de la page
   computed: {
-    // liste des variables qui appellent qq'un
-    // variable interactive
+    // liste des variables qui appellent une variable interactive
     isSubmitting() {
       // variable interactive de submutting sous forme de fonction
       return this.$store.state.auth.isSubmitting; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting

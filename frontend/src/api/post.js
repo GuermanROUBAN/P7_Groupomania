@@ -50,8 +50,6 @@ import axios from './instance'
 //   }
 // })
 
-
-
 // import { URL } from './info'
 
 function getPosts() {
@@ -63,20 +61,19 @@ function getPosts() {
 
 function createNewPost(credentials) {
   console.log(credentials)
-  // Le fetch prend 4 options
-
   // return fetch('http://127.0.0.1:3000/api/post/create', {
-
   //   method: 'post',
   //   headers: {
   //     "Content-Type": "application/json"
   //   },
   //   body: JSON.stringify(credentials)
   // })
-
   return axios.post('http://127.0.0.1:3000/api/post/create', credentials);
-
   // axiosInstance2.post('http://127.0.0.1:3000/api/post/create', credentials);
 }
 
-export default { getPosts, createNewPost }
+function deleteMyPost(postId, credentials) {
+  return axios.delete(`http://127.0.0.1:3000/api/post/delete/${postId}`, credentials);
+}
+
+export default { getPosts, createNewPost, deleteMyPost }
