@@ -1,48 +1,88 @@
 <template>
-  <div class="container">
-    <!-- <div class="row">
-      <div class="col">
-        <h1>POSTS</h1>
-      </div>
-    </div> -->
-    <div class="row">
-      <div class="col-12 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-          </div>
-          <div class="row">
-            <div class="col-12 col-lg-12">
-              <button type="button" class="btn btn-info">Send</button>
-              <!-- au click on appel la methode Submit
-			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-lg-12">
-              <button type="button" class="btn btn-danger">
-                Delete my post
-              </button>
-              <!-- au click on appel la methode Submit
-			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-            </div>
-          </div>
+  <div class="addNewComment">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1>{{ $store.state.auth.username }}</h1>
         </div>
       </div>
+      <form v-on:submit="addNewComment">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Comment</label>
+          <input
+            v-model="comment"
+            type="text"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            required
+          />
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-12">
+            <button type="submit" class="btn btn-info">Send my comment</button>
+          </div>
+          <div class="col-12 col-lg-12">
+            <button @click="$emit('back')" type="button" class="btn btn-danger">
+              Back to home
+            </button>
+            <app-error :error="error" v-if="error" />
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+import AppError from "@/components/Error";
 export default {
-  name: "AddNewComment",
-  props: {
-    post: {},
+  name: "AddNewComment", // nom de la page
+  computed: {
+    isSubmittingPost() {
+      // variable interactive de submutting sous forme de fonction
+      return this.$store.state.post.isSubmittingPost; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting
+    },
+    error() {
+      return this.$store.state.auth.error; // l.22 dans modules auth (local erreur fait appel a globale error)
+    },
+  },
+  methods: {
+    addNewComment() {
+      this.$store
+        .dispatch("createNewComment", {
+          userId: this.$store.state.auth.userId, // on reception userId de auth state
+          comment: this.comment,
+        })
+        .then(() => {
+          this.$emit("commentCreated");
+          this.$emit("back");
+        });
+    },
+  },
+  data() {
+    return {   
+      comment: "",
+    };
+  },
+
+  mounted() {
+    console.log(this.$store.state);
+  },
+  components: {
+    AppError,
   },
 };
 </script>
+
+<style>
+.addNewComment {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(124, 160, 95);
+}
+</style>
