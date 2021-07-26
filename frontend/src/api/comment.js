@@ -1,18 +1,7 @@
 // Imports
 import axios from './instance'
 
-// On récupère un comment spécifique
-// router.get('/read/:id', commentCtrl.getOneComment) // auth inutile car pas besoin d'etre logé pour voir un comment
-
-// On va chercher tous les comments dans la BD
-// router.get('/read-all-comments', commentCtrl.getAllComments); //auth inutile car pas besoin d'etre logé pour voir tous les posts
-
-// On va chercher tous les comments d'un user dans la BD
-// router.get('/users-comments/:id', commentCtrl.getAllCommentForUser);
-
-
-
-// Affichage des comments pour un post: router.get('/posts-comments/:id', commentCtrl.getAllCommentForPost);
+// Afficher des comments pour un post: router.get('/posts-comments/:id', commentCtrl.getAllCommentForPost);
 function getCommentsForPost(postId) {
 	return axios.get(`http://127.0.0.1:3000/api/comment/posts-comments/${postId}`);
 }
@@ -32,4 +21,18 @@ function deleteMyComment(postId, credentials) {
 	return axios.delete(`http://127.0.0.1:3000/api/comment/delete/${postId}`, credentials);
 }
 
+// Exports
 export default { getCommentsForPost, createNewComment, modifyMyComment, deleteMyComment }
+
+//---------------------------------------------------
+
+// Autres Routes possibles
+
+// On récupère un comment spécifique
+// router.get('/read/:id', commentCtrl.getOneComment) // auth inutile car pas besoin d'etre logé pour voir un comment
+
+// On va chercher tous les comments dans la BD
+// router.get('/read-all-comments', commentCtrl.getAllComments); //auth inutile car pas besoin d'etre logé pour voir tous les posts
+
+// On va chercher tous les comments d'un user dans la BD
+// router.get('/users-comments/:id', commentCtrl.getAllCommentForUser);

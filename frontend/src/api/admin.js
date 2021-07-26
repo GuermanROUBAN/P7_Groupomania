@@ -1,17 +1,22 @@
 // Imports
+import axios from './instance'
 
-const fetch = require('node-fetch')
+// Supprimer un post: router.delete('/delete-post/:id', auth, adminCtrl.adminRemovePost);
+function deleteUserPost(postId, credentials) {
+	return axios.delete(`http://127.0.0.1:3000/api/admin/delete-post/${postId}`, credentials);
+}
 
+// Supprimer un comment: router.delete('/delete-post/:id', auth, adminCtrl.adminRemovePost);
+function deleteUserComment(postId, credentials) {
+	return axios.delete(`http://127.0.0.1:3000/api/admin/delete-comment/${postId}`, credentials);
+}
 
+// Supprimer un compte utilisateur: router.delete('/delete-post/:id', auth, adminCtrl.adminRemovePost);
+function deleteUserAccount(postId, credentials) {
+	return axios.delete(`http://127.0.0.1:3000/api/admin/delete-user/${postId}`, credentials);
+}
 
-// // Supprimer un post
-// router.delete('/delete-post/:id', auth, adminCtrl.adminRemovePost); //
+// Exports
+export default { deleteUserPost, deleteUserComment, deleteUserAccount }
 
-// // Supprimer un comment
-// router.delete('/delete-comment/:id', auth, adminCtrl.adminRemoveComment); //
-
-// // Supprimer un user
-// router.delete('/delete-user/:id', auth, adminCtrl.adminRemoveUser); //
-
-
-// export default {  }
+//---------------------------------------------------
