@@ -36,7 +36,7 @@
             <div class="row">
               <div class="col-12 col-lg-12">
                 <button
-                  @click="deleteUserPost"
+                  @click="adminDeleteUserPost"
                   type="button"
                   class="btn btn-info"
                 >
