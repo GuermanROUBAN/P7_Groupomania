@@ -11,12 +11,18 @@
           <div class="card-body">
             <p class="card-text">{{ post.username }}</p>
             <p class="card-text">{{ post.createdAt }}</p>
-            <!-- <div class="row">
+            <div class="row">
+              <AddNewComment
+                v-if="isOpen"
+                v-bind:postId="post.id"
+                @back="closeModal"
+                @commentCreated="onCommentCreated"
+              />
               <div class="col-12 col-lg-12">
                 <button
-                  @click="addComment"
                   type="button"
                   class="btn btn-success"
+                  @click="openModal"
                 >
                   Add my comment
                 </button>
@@ -24,26 +30,18 @@
             </div>
             <div class="row">
               <div class="col-12 col-lg-12">
-                <button
-                  @click="modifyPost"
-                  type="button"
-                  class="btn btn-warning"
-                >
+                <button type="button" class="btn btn-warning">
                   Modify my post
                 </button>
               </div>
             </div>
             <div class="row">
               <div class="col-12 col-lg-12">
-                <button
-                  @click="adminDeleteUserPost"
-                  type="button"
-                  class="btn btn-info"
-                >
+                <button type="button" class="btn btn-info">
                   Delete user post
                 </button>
               </div>
-            </div> -->
+            </div>
             <div class="row">
               <div class="col-12 col-lg-12" v-if="mypost">
                 <button
@@ -82,50 +80,12 @@
           </div>
 
           <ul v-if="commentsIsShow && comments !== null" class="list-group">
-            <li
+            <Comment
               v-for="comment of comments"
               :key="comment.id"
-              class="list-group-item"
-            >
-              {{ $store.state.auth.username }}<br />
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="mycomment">
-                  <button
-                    @click="deleteComment"
-                    type="button"
-                    class="btn btn-danger"
-                  >
-                    Delete my comment
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="modifyMyComment">
-                  <button
-                    @click="modifyComment"
-                    type="button"
-                    class="btn btn-warning"
-                  >
-                    Modify my comment
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="adminDeleteComment">
-                  <button
-                    @click="adminDeleteUserComment"
-                    type="button"
-                    class="btn btn-info"
-                  >
-                    Admin Delete user comment
-                  </button>
-                </div>
-              </div>
-              {{ post.createdAt }} {{ post.modifiedAt }}<br /><br />
-              {{ comment.comment }}<br />
-
-              <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
-            </li>
+              :comment="comment"
+              @deleteComment="deleteComment"
+            />
           </ul>
         </div>
       </div>
@@ -135,6 +95,8 @@
 
 <script>
 import commentApi from "../api/comment";
+import Comment from "./Comment";
+import AddNewComment from "./AddNewComment.vue";
 
 export default {
   name: "Post",
@@ -142,6 +104,7 @@ export default {
     return {
       comments: null,
       commentsIsShow: false,
+      isOpen: false,
     };
   },
   computed: {
@@ -150,6 +113,10 @@ export default {
     },
 
     seeComments() {
+      console.log(
+        "seeComments",
+        this.comments !== null && this.comments.length > 0
+      );
       return this.comments !== null && this.comments.length > 0; // true or false
     },
     mycomment() {
@@ -176,7 +143,20 @@ export default {
           this.$emit("postDeleted");
         });
     },
-    creatComment() {},
+    onCommentCreated() {
+      console.log("onCommentCreated");
+      this.getComments();
+    },
+
+    openModal() {
+      console.log(this.isOpen); // false
+      this.isOpen = true;
+      console.log(this.isOpen); // true
+    },
+    closeModal() {
+      this.isOpen = false;
+    },
+
     getComments() {
       commentApi.getCommentsForPost(this.post.id).then((response) => {
         this.comments = response.data.comments;
@@ -185,17 +165,17 @@ export default {
     toggleComments() {
       this.commentsIsShow = !this.commentsIsShow;
     },
-    deleteComment() {
+    deleteComment(commentId) {
       console.log("deleteComment");
       this.$store
         .dispatch("deleteMyComment", {
-          commentId: this.comments.id,
+          commentId,
           credentials: {
             userId: Number(this.$store.state.auth.userId),
           },
         })
         .then(() => {
-          this.$emit("commentDeleted");
+          this.getComments();
         });
     },
     modifyComment() {},
@@ -206,7 +186,12 @@ export default {
     post: {}, // Dans Home.vue
   },
   mounted() {
+    console.log("mounted Comments");
     this.getComments();
+  },
+  components: {
+    Comment,
+    AddNewComment,
   },
 };
 </script>

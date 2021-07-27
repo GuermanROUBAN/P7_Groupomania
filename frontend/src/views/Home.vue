@@ -21,6 +21,7 @@
       :key="item.id"
       :post="item"
       @postDeleted="onPostDeleted"
+
     />
   </div>
 </template>
@@ -62,6 +63,10 @@ export default {
     },
     getPosts() {
       this.$store.dispatch("post/getPosts");
+    },
+    onCommentDeleted() {
+      console.log("onCommentDeleted");
+      this.getPosts();
     },
   },
   mounted() {

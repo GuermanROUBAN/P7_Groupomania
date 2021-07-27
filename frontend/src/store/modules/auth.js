@@ -59,33 +59,35 @@ let actions = {
 		// nom de la mutation ici registerStart
 		context.commit('registerStart') // commit appel mutation
 		// console.log("BOOOOOMMM");
-		authApi.register(credentials)
-			.then(response => {
-				if (response.ok) {
-					response.json().then(json => { // le json c'est la reponse de notre serveur (user, token)
-						console.log(json)
-						// La mutation est actée, l'action commit
-						context.commit('registerSuccess', json.user) // on envoi le user dans les mutations
-						localStorage.setItem("token", json.token) // le token va dans le LS
-						localStorage.setItem("username", json.username) // ajout username au LS 
-						localStorage.setItem("userId", json.user.id) // ajout userId au LS 
-					})
-				} else {
-					response.json().then(json => {
-						console.log(json)
-						// La mutation est actée, l'action commit
-						context.commit('registerFailure', json.error)
-					})
+		return new Promise((resolve) => {
+			authApi.register(credentials)
+				.then(response => {
+					if (response.ok) {
+						response.json().then(json => { // le json c'est la reponse de notre serveur (user, token)
+							console.log(json)
+							// La mutation est actée, l'action commit
+							context.commit('registerSuccess', {
+								user: json.user,
+								token: json.token,
+								username: json.username,
+								userId: json.user.id
+							}) // on envoi le user dans les mutations
+							localStorage.setItem("token", json.token) // le token va dans le LS
+							localStorage.setItem("username", json.username) // ajout username au LS 
+							localStorage.setItem("userId", json.user.id) // ajout userId au LS
 
-				}
-			})
-			.catch()
-		// Test
-		// setTimeout(() => {
-		// 	context.commit('registerStart')
-		// },
-		// 	1000
-		// )
+							resolve();
+						})
+					} else {
+						response.json().then(json => {
+							console.log(json)
+							// La mutation est actée, l'action commit
+							context.commit('registerFailure', json.error)
+						})
+
+					}
+				})
+		})
 	},
 	login(context, credentials) {
 		return new Promise((resolve) => { // on a besoin d'un constructeur Promise pour avoir un resolve

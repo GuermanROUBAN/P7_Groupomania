@@ -69,18 +69,18 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-12">
-            <button type="button" class="btn btn-warning">
+            <button
+              @click="deleteMyAccount"
+              type="button"
+              class="btn btn-warning"
+            >
               Delete my Account
             </button>
           </div>
         </div>
         <div class="row">
           <div class="col-12 col-lg-12">
-            <button
-              @click="deleteUserAccount"
-              type="button"
-              class="btn btn-info"
-            >
+            <button type="button" class="btn btn-info">
               Delete user Account
             </button>
           </div>
@@ -91,5 +91,24 @@
 </template>
 
 <script>
-export default { name: "AppTopbar" };
+import authApi from "../api/auth";
+
+export default {
+  name: "AppTopbar",
+  methods: {
+    deleteMyAccount() {
+      const isConfirm = confirm(
+        "Are you sure you want to delete your account?"
+      );
+
+      if (isConfirm) {
+        authApi
+          .deleteMyAccount(Number(this.$store.state.auth.userId))
+          .then(() => {
+            this.$router.push("/register");
+          });
+      }
+    },
+  },
+};
 </script>

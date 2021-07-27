@@ -1,4 +1,5 @@
 const Comment = require('../models/comment');
+const User = require('../models/user');
 
 // On aura besoin de npm install --save jsonwebtoken
 const jwt = require('jsonwebtoken'); // on l'importe ici
@@ -120,9 +121,37 @@ exports.getOneComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => {
 	Comment.findAll()
-		.then((comments) => res.status(200).json({
-			comments
-		}))
+		.then((comments) => {
+			const copyComments = [...comments];
+
+			User.findAll().then((users) => {
+				for (const comment of copyComments) {
+					for (const user of users) {
+						if (user.id === comment.idUSERS) {
+							comment.username = user.username;
+							break;
+						}
+					}
+				}
+
+				const newMapComments = copyComments.map((copyComment) => {
+					return {
+						id: copyComment.id,
+						idPOSTS: copyComment.idPOSTS,
+						comment: copyComment.comment,
+						createdAt: copyComment.createdAt,
+						updatedAt: copyComment.updatedAt,
+						username: copyComment.username
+					}
+				})
+
+				console.log('hahahaha', newMapComments)
+
+				res.status(200).json({
+					comments: newMapComments
+				})
+			})
+		})
 		.catch((err) => res.status(401).json({
 			err
 		}));
@@ -141,9 +170,35 @@ exports.getAllCommentForPost = (req, res, next) => {
 		},
 	})
 		.then((comments) => {
-			console.log(comments);
-			res.status(200).json({
-				comments
+			const copyComments = [...comments];
+
+			User.findAll().then((users) => {
+				for (const comment of copyComments) {
+					for (const user of users) {
+						if (user.id === comment.idUSERS) {
+							comment.username = user.username;
+							break;
+						}
+					}
+				}
+
+				const newMapComments = copyComments.map((copyComment) => {
+					return {
+						id: copyComment.id,
+						idUSERS: copyComment.idUSERS,
+						idPOSTS: copyComment.idPOSTS,
+						comment: copyComment.comment,
+						createdAt: copyComment.createdAt,
+						updatedAt: copyComment.updatedAt,
+						username: copyComment.username
+					}
+				})
+
+				console.log('newMapComments', newMapComments);
+
+				res.status(200).json({
+					comments: newMapComments
+				})
 			})
 		})
 

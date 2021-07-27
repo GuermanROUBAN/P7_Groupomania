@@ -76,13 +76,18 @@ export default {
       // on appelle l'action de register depuis Aut
       // vous envoyez l'action pour exécuter une tâche propager/dispatch
 
-      if (isEmail(this.email)) { // controle de l'email grace à @rearguard/is-email
-        this.$store.dispatch("register", {
-          // appel action
-          username: this.username,
-          email: this.email,
-          password: this.password,
-        });
+      if (isEmail(this.email)) {
+        // controle de l'email grace à @rearguard/is-email
+        this.$store
+          .dispatch("register", {
+            // appel action
+            username: this.username,
+            email: this.email,
+            password: this.password,
+          })
+          .then(() => {
+            this.$router.push("/");
+          });
       } else {
         alert("Le champs email est incorrect ex: test@test.fr");
       }

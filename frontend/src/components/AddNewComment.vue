@@ -51,7 +51,8 @@ export default {
     addNewComment() {
       this.$store
         .dispatch("createNewComment", {
-          userId: this.$store.state.auth.userId, // on reception userId de auth state
+          userId: Number(this.$store.state.auth.userId), // on reception userId de auth state
+          postId: this.postId,
           comment: this.comment,
         })
         .then(() => {
@@ -61,7 +62,7 @@ export default {
     },
   },
   data() {
-    return {   
+    return {
       comment: "",
     };
   },
@@ -71,6 +72,9 @@ export default {
   },
   components: {
     AppError,
+  },
+  props: {
+    postId: {},
   },
 };
 </script>

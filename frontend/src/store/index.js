@@ -7,6 +7,7 @@ import admin from '@/store/modules/admin'
 import addpost from '@/store/modules/addpost'
 import deletepost from '@/store/modules/deletepost'
 import deletecomment from '@/store/modules/deletecomment'
+import addcomment from '@/store/modules/addcomment'
 
 Vue.use(Vuex)
 
@@ -49,5 +50,6 @@ export default new Vuex.Store({
     addpost,
     deletepost,
     deletecomment,
+    addcomment,
   }
 })
