@@ -113,10 +113,10 @@ export default {
     },
 
     seeComments() {
-      console.log(
-        "seeComments",
-        this.comments !== null && this.comments.length > 0
-      );
+      // console.log(
+      //   "seeComments",
+      //   this.comments !== null && this.comments.length > 0
+      // );
       return this.comments !== null && this.comments.length > 0; // true or false
     },
     mycomment() {
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     deletePost() {
-      console.log("deletePost");
+      // console.log("deletePost");
       this.$store
         .dispatch("deleteMyPost", {
           postId: this.post.id,
@@ -144,14 +144,14 @@ export default {
         });
     },
     onCommentCreated() {
-      console.log("onCommentCreated");
+      // console.log("onCommentCreated");
       this.getComments();
     },
 
     openModal() {
-      console.log(this.isOpen); // false
+      // console.log(this.isOpen); // false
       this.isOpen = true;
-      console.log(this.isOpen); // true
+      // console.log(this.isOpen); // true
     },
     closeModal() {
       this.isOpen = false;
@@ -166,7 +166,7 @@ export default {
       this.commentsIsShow = !this.commentsIsShow;
     },
     deleteComment(commentId) {
-      console.log("deleteComment");
+      // console.log("deleteComment");
       this.$store
         .dispatch("deleteMyComment", {
           commentId,
@@ -186,7 +186,7 @@ export default {
     post: {}, // Dans Home.vue
   },
   mounted() {
-    console.log("mounted Comments");
+    // console.log("mounted Comments");
     this.getComments();
   },
   components: {

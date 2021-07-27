@@ -80,7 +80,7 @@ let actions = {
 						})
 					} else {
 						response.json().then(json => {
-							console.log(json)
+							// console.log(json)
 							// La mutation est actée, l'action commit
 							context.commit('registerFailure', json.error)
 						})
@@ -91,7 +91,7 @@ let actions = {
 	},
 	login(context, credentials) {
 		return new Promise((resolve) => { // on a besoin d'un constructeur Promise pour avoir un resolve
-			console.log("login")
+			// console.log("login")
 			//Lorsqu'une mutation est actée, l'action commit prend 1 paramètre :
 			// nom de la mutation ici registerStart
 			context.commit('registerStart') // commit appel mutation // eteint le bouton
@@ -100,7 +100,7 @@ let actions = {
 				.then(response => {
 					if (response.ok) {
 						response.json().then(json => { // le json c'est la reponse de notre serveur (user, token)
-							console.log(json)
+							// console.log(json)
 							// La mutation est actée, l'action commit
 							context.commit('registerSuccess', json) // on envoi le user dans les mutations, on appel tjr la meme mutation car elle nous est favorable
 							localStorage.setItem("token", json.token) // le token va dans le LS
@@ -110,7 +110,7 @@ let actions = {
 						})
 					} else {
 						response.json().then(json => {
-							console.log(json)
+							// console.log(json)
 							// La mutation est actée, l'action commit
 							context.commit('registerFailure', json.error)
 						})

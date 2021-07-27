@@ -47,7 +47,8 @@ exports.signup = (req, res, next) => { // on exporte la fonction vers route
 							{ userId: user.id },
 							`${process.env.TOKEN}`,
 							{ expiresIn: '24h' }
-						)
+						),
+						username: user.username
 					})) // 201 pour création de ressources
 					.catch(error => res.status(400).json({ error: error }));
 			} else {

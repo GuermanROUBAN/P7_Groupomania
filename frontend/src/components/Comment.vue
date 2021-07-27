@@ -48,8 +48,8 @@ export default {
   },
   computed: {
     mycomment() {
-      console.log("comment id user", this.comment.idUSERS);
-      console.log("authorized id user", Number(this.$store.state.auth.userId));
+      // console.log("comment id user", this.comment.idUSERS);
+      // console.log("authorized id user", Number(this.$store.state.auth.userId));
       return this.comment.idUSERS === Number(this.$store.state.auth.userId);
     },
   },

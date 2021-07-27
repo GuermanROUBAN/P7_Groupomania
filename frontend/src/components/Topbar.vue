@@ -72,7 +72,7 @@
             <button
               @click="deleteMyAccount"
               type="button"
-              class="btn btn-warning"
+              class="btn btn-danger"
             >
               Delete my Account
             </button>
