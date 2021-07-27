@@ -69,9 +69,19 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-12">
-            <h2>Welcome dear user {{ $store.state.auth.username }}</h2>
             <button type="button" class="btn btn-warning">
               Delete my Account
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-12">
+            <button
+              @click="deleteUserAccount"
+              type="button"
+              class="btn btn-info"
+            >
+              Delete user Account
             </button>
           </div>
         </div>

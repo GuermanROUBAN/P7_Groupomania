@@ -32,6 +32,17 @@
                   Modify my post
                 </button>
               </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-lg-12">
+                <button
+                  @click="deleteUserPost"
+                  type="button"
+                  class="btn btn-info"
+                >
+                  Delete user post
+                </button>
+              </div>
             </div> -->
             <div class="row">
               <div class="col-12 col-lg-12" v-if="mypost">
@@ -76,10 +87,9 @@
               :key="comment.id"
               class="list-group-item"
             >
-              {{ $store.state.auth.username }}, {{ post.createdAt }}<br />
-              {{ comment.comment }}<br />
+              {{ $store.state.auth.username }}<br />
               <div class="row">
-                <div class="col-12 col-lg-12">
+                <div class="col-12 col-lg-12" v-if="mycomment">
                   <button
                     @click="deleteComment"
                     type="button"
@@ -90,9 +100,9 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-lg-12">
+                <div class="col-12 col-lg-12" v-if="modifyMyComment">
                   <button
-                    @click="deletePost"
+                    @click="modifyComment"
                     type="button"
                     class="btn btn-warning"
                   >
@@ -100,6 +110,20 @@
                   </button>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-12 col-lg-12" v-if="adminDeleteComment">
+                  <button
+                    @click="adminDeleteUserComment"
+                    type="button"
+                    class="btn btn-info"
+                  >
+                    Admin Delete user comment
+                  </button>
+                </div>
+              </div>
+              {{ post.createdAt }} {{ post.modifiedAt }}<br /><br />
+              {{ comment.comment }}<br />
+
               <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
             </li>
           </ul>
@@ -124,9 +148,19 @@ export default {
     mypost() {
       return this.post.idUSERS === Number(this.$store.state.auth.userId);
     },
+
     seeComments() {
       return this.comments !== null && this.comments.length > 0; // true or false
     },
+    mycomment() {
+      return this.comments.id === Number(this.$store.state.auth.userId);
+    },
+    //   modifyMyComment() {
+    //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
+    //   },
+    //   adminDeleteComment() {
+    //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
+    //   },
   },
   methods: {
     deletePost() {
@@ -151,6 +185,21 @@ export default {
     toggleComments() {
       this.commentsIsShow = !this.commentsIsShow;
     },
+    deleteComment() {
+      console.log("deleteComment");
+      this.$store
+        .dispatch("deleteMyComment", {
+          commentId: this.comments.id,
+          credentials: {
+            userId: Number(this.$store.state.auth.userId),
+          },
+        })
+        .then(() => {
+          this.$emit("commentDeleted");
+        });
+    },
+    modifyComment() {},
+    deleteuserAccount() {},
   },
 
   props: {
