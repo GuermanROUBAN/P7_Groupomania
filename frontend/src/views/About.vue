@@ -1,14 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <!-- <button type="button" class="btn btn-success" v-on:click="increaseCounter">
-      Success
-    </button> -->
-    <!-- {{ counter }} -->
-
-  <router-link to ="/login" class="btn">LOGIN</router-link>
-  <router-link to ="/register" class="btn">REGISTER</router-link>
-
+  <div class="container">
+    <div>
+      <img src="C:\Users\Guermoon\Desktop\Triumph\2021\P7\P7_Groupomania\frontend\src\assets\icon-above-front.png" class="img-fluid" alt="...">
+    </div>
+    
+    <div class="row">
+      <div class="col-12 col-lg-12">
+        <div class="about">
+          <h1>WELCOME TO GROUPOMANIA</h1>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <router-link to="/login" class="btn">LOGIN</router-link>
+              <router-link to="/register" class="btn">REGISTER</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
