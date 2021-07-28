@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-    <div>
-      <img src="C:\Users\Guermoon\Desktop\Triumph\2021\P7\P7_Groupomania\frontend\src\assets\icon-above-front.png" class="img-fluid" alt="...">
+    <div class="banner d-flex justify-content-center">
+      <img :src="require('/src/assets/icon-above-font.png')" alt="Logo de l'entreprise" />
     </div>
-    
     <div class="row">
       <div class="col-12 col-lg-12">
-        <div class="about">
-          <h1>WELCOME TO GROUPOMANIA</h1>
+        <div class="row">
+          <div class="about d-flex justify-content-center">
+            <h1>WELCOME TO SOCIAL WORK</h1>
+          </div>
           <div class="row">
             <div class="col-12 col-lg-12">
               <router-link to="/login" class="btn">LOGIN</router-link>
@@ -41,3 +42,13 @@ export default {
   },
 };
 </script>
+<style>
+.container {
+  height: auto;
+}
+
+.banner {
+  height: 300px;
+  width: 100%;
+}
+</style> 
