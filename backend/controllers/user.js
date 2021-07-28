@@ -48,7 +48,6 @@ exports.signup = (req, res, next) => { // on exporte la fonction vers route
 							`${process.env.TOKEN}`,
 							{ expiresIn: '24h' }
 						),
-						username: user.username
 					})) // 201 pour création de ressources
 					.catch(error => res.status(400).json({ error: error }));
 			} else {
@@ -81,13 +80,12 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 			console.log("-- ICI AFFICHE id de l'UTILISATEUR TROUVE --" + user.id)
 			if (user.password === hash) {
 				res.status(200).json({ // si valable (true) on va renvoyer au F-e un id et un token d'authentification
-					userId: user.id, // renvoi l'id de l'utilisateur
+					user, // renvoi l'id de l'utilisateur
 					token: jwt.sign( // le token
 						{ userId: user.id },
 						`${process.env.TOKEN}`,
 						{ expiresIn: '24h' },
 					),
-					username: user.username
 				});
 			} else {
 				return res.status(401).json({ error: "Mot de passe incorrect !" });

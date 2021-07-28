@@ -29,13 +29,26 @@ exports.adminRemovePost = (req, res) => {
 		if (!result) {
 			res.status(404).json({ "error": "Accès uniquement administrateur !" })
 		} else {
-			Post.destroy({
-				where: {
-					id: Number(req.params.id)// convertion string in number
+			Comment.findAll().then(async (comments) => {
+				for (const comment of comments) {
+					// permet de supprimer tous le poste avec le commentaire
+					if (Number(req.params.id) === comment.idPOSTS) {
+						await Comment.destroy({
+							where: {
+								id: comment.id
+							}
+						})
+					}
 				}
-			})
-			res.status(200).json({
-				message: "Post supprimé"
+				Post.destroy({
+					where: {
+						id: Number(req.params.id)// convertion string in number
+					}
+				}).then(() => {
+					res.status(200).json({
+						message: "Post supprimé"
+					})
+				})
 			})
 		}
 	})

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navigation />
     <h1>HOME PAGE OF {{ $store.state.auth.username }}</h1>
     <div class="container">
       <div class="row">
@@ -21,7 +22,7 @@
       :key="item.id"
       :post="item"
       @postDeleted="onPostDeleted"
-
+      @adminDeletePost="onAdminDeletePost"
     />
   </div>
 </template>
@@ -30,12 +31,14 @@
 <script>
 import Post from "../components/Post.vue";
 import AddNewPost from "../components/AddNewPost.vue";
+import Navigation from "../components/Topbar.vue";
 
 export default {
   name: "Home",
   components: {
     Post,
     AddNewPost, // Enregistrement du composant
+    Navigation,
   },
   data() {
     return {
@@ -66,6 +69,10 @@ export default {
     },
     onCommentDeleted() {
       console.log("onCommentDeleted");
+      this.getPosts();
+    },
+    onAdminDeletePost() {
+      console.log("onAdminDeletePost");
       this.getPosts();
     },
   },

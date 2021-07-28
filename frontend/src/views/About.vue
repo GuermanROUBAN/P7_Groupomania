@@ -5,6 +5,10 @@
       Success
     </button> -->
     <!-- {{ counter }} -->
+
+  <router-link to ="/login" class="btn">LOGIN</router-link>
+  <router-link to ="/register" class="btn">REGISTER</router-link>
+
   </div>
 </template>
 

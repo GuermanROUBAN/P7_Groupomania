@@ -36,8 +36,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 col-lg-12">
-                <button type="button" class="btn btn-info">
+              <div class="col-12 col-lg-12" v-if="isAdmin">
+                <button @click="adminDeletePost" type="button" class="btn btn-info">
                   Delete user post
                 </button>
               </div>
@@ -85,6 +85,7 @@
               :key="comment.id"
               :comment="comment"
               @deleteComment="deleteComment"
+              @adminDeleteComment="adminDeleteComment"
             />
           </ul>
         </div>
@@ -95,8 +96,10 @@
 
 <script>
 import commentApi from "../api/comment";
+import adminApi from "../api/admin";
 import Comment from "./Comment";
 import AddNewComment from "./AddNewComment.vue";
+import { mapState } from "vuex"; 
 
 export default {
   name: "Post",
@@ -128,6 +131,9 @@ export default {
     //   adminDeleteComment() {
     //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
     //   },
+    ...mapState({ // etat du state
+      isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
+    }),
   },
   methods: {
     deletePost() {
@@ -179,7 +185,17 @@ export default {
         });
     },
     modifyComment() {},
-    deleteuserAccount() {},
+
+    adminDeleteComment() {
+      this.getComments();
+    },
+
+    adminDeletePost() {
+    adminApi.deleteUserPost(this.post.id)
+    .then(() => {
+        this.$emit("adminDeletePost"); // on genere l evenement
+      });
+    },
   },
 
   props: {

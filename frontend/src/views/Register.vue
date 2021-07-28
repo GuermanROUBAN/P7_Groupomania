@@ -86,7 +86,7 @@ export default {
             password: this.password,
           })
           .then(() => {
-            this.$router.push("/");
+            this.$router.push("/home");
           });
       } else {
         alert("Le champs email est incorrect ex: test@test.fr");

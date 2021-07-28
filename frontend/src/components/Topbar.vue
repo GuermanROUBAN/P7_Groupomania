@@ -80,8 +80,8 @@
         </div>
         <div class="row">
           <div class="col-12 col-lg-12">
-            <button type="button" class="btn btn-info">
-              Delete user Account
+            <button @click="logout" type="button" class="btn btn-warning">
+              LogOut
             </button>
           </div>
         </div>
@@ -108,6 +108,10 @@ export default {
             this.$router.push("/register");
           });
       }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/about");
     },
   },
 };
