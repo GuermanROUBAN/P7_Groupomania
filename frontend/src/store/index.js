@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from '@/store/modules/auth'
 import post from '@/store/modules/post'
-import comment from '@/store/modules/comment'
-import admin from '@/store/modules/admin'
 import addpost from '@/store/modules/addpost'
 import deletepost from '@/store/modules/deletepost'
 import deletecomment from '@/store/modules/deletecomment'
@@ -45,8 +43,6 @@ export default new Vuex.Store({
   modules: {
     auth, // on demande a vuex de traiter le module auth
     post,
-    admin,
-    comment,
     addpost,
     deletepost,
     deletecomment,

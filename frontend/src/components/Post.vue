@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <!-- <div class="row">
-      <div class="col">
-        <h1>POSTS</h1>
-      </div>
-    </div> -->
     <div class="row justify-content-center">
       <div class="col-12 col-lg-8">
         <div class="card">
@@ -13,12 +8,16 @@
             <p class="card-text">{{ post.createdAt }}</p>
             <p class="card-text">{{ post.updatedAt }}</p>
             <div class="row">
+
+              <!--Fenêtre chargante nouveau comment-->
               <AddNewComment
                 v-if="isOpen"
                 v-bind:postId="post.id"
                 @back="closeModal"
                 @sendCommentData="onCommentCreated"
               />
+
+              <!--Bouton ajouter mon comment-->
               <div class="col-12 col-lg-12">
                 <button
                   type="button"
@@ -29,6 +28,8 @@
                 </button>
               </div>
             </div>
+
+            <!--Bouton modifier mon post-->
             <div class="d-flex align-items-center justify-content-end">
               <div class="row">
                 <div class="col-12 col-lg-12" v-if="mypost">
@@ -40,6 +41,8 @@
                     Modifier mon poste
                   </button>
                 </div>
+
+                <!--Fenetre chargant vieux post-->
                 <OldPost
                   v-if="postIsEdited"
                   :defaultTitle="post.title"
@@ -50,6 +53,8 @@
                   @back="closeModifyPostModal"
                 />
               </div>
+
+              <!--Bouton supprimer mon post-->
               <div class="row">
                 <div class="col-12 col-lg-12" v-if="mypost">
                   <button
@@ -61,6 +66,8 @@
                   </button>
                 </div>
               </div>
+
+              <!--Bouton Admin supprime un post-->
               <div class="row">
                 <div class="col-12 col-lg-12" v-if="isAdmin">
                   <button
@@ -73,13 +80,18 @@
                 </div>
               </div>
             </div>
+
+            <!--Autres data du post-->
             <p class="card-text">{{ post.updatedAt }}</p>
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.content }}</p>
             <div class="d-flex justify-content-center">
+              <!--Affichage image des caracteres-->
               <img :src="post.attachement" />
             </div>
           </div>
+
+          <!--Bouton afficher/masquer les commentaires -->
           <div class="row">
             <div class="col-12 col-lg-12" v-if="seeComments">
               <button
@@ -88,7 +100,7 @@
                 type="button"
                 class="btn btn-primary"
               >
-                Show Comments
+                Afficher les commentaires
               </button>
               <button
                 v-else
@@ -96,11 +108,12 @@
                 type="button"
                 class="btn btn-secondary"
               >
-                Hide Comments
+                Cacher les commentaires
               </button>
             </div>
           </div>
 
+          <!--Si commentaires presents affichage de la liste -->
           <ul v-if="commentsIsShow && comments !== null" class="list-group">
             <Comment
               v-for="comment of comments"
@@ -112,6 +125,7 @@
               @modifyComment="onModifyComment"
             />
           </ul>
+
         </div>
       </div>
     </div>
@@ -134,38 +148,39 @@ export default {
       postIsEdited: false,
       comments: null,
       commentsIsShow: false,
+      // Les v-if sont par defaut a false
       isOpen: false,
     };
   },
   computed: {
+
+    // Controle si le post est bien celui de l'utilisateur => affiche bouton
     mypost() {
       return this.post.idUSERS === Number(this.$store.state.auth.userId);
     },
 
+    // Controle s'il y a des comments pour un post
     seeComments() {
-      // console.log(
-      //   "seeComments",
-      //   this.comments !== null && this.comments.length > 0
-      // );
       return this.comments !== null && this.comments.length > 0; // true or false
     },
+
+    // Controle si le comment est bien celui de l'utilisateur => affiche bouton
     mycomment() {
       return this.comments.id === Number(this.$store.state.auth.userId);
     },
-    //   modifyMyComment() {
-    //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
-    //   },
-    //   adminDeleteComment() {
-    //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
-    //   },
+
     ...mapState({
       // etat du state
-      isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
+      // on creer la propriete isAdmin qui va chercher true or false dans objet user
+      isAdmin: (state) => state.auth.user.isAdmin, 
     }),
   },
   methods: {
+
+    // Posts
+
+    // Supression de posts
     deletePost() {
-      // console.log("deletePost");
       this.$store
         .dispatch("deleteMyPost", {
           postId: this.post.id,
@@ -177,9 +192,12 @@ export default {
           this.$emit("postDeleted");
         });
     },
+
+    // Modification de posts
     modifyPost() {
       this.postIsEdited = true;
     },
+
     editPost({ postId, ...credentials }) {
       postApi.modifyMyPost(postId, credentials).then(() => {
         this.closeModifyPostModal();
@@ -190,33 +208,53 @@ export default {
     closeModifyPostModal() {
       this.postIsEdited = false;
     },
-    onCommentCreated(commentData) {
-      this.$store.dispatch("createNewComment", commentData).then(() => {
-        this.getComments();
-        this.closeModal();
-      });
-    },
-    onModifyComment(){
-      this.getComments();
-    },
-    
+
+    // Actions universelles pour ouvrir/fermer une fenetre modale
     openModal() {
       // console.log(this.isOpen); // false
       this.isOpen = true;
       // console.log(this.isOpen); // true
     },
+
     closeModal() {
       this.isOpen = false;
     },
 
+    // Comments
+
+    // Chargement des comments pour un post
     getComments() {
+      // Affiche les comments d'un post
       commentApi.getCommentsForPost(this.post.id).then((response) => {
         this.comments = response.data.comments;
       });
     },
+
+    // Permute l'apparition des comments au click sur le bouton Afficher/Masquer Commentairs
     toggleComments() {
       this.commentsIsShow = !this.commentsIsShow;
     },
+
+    // Création d'un comment
+    onCommentCreated(commentData) {
+      this.$store.dispatch("createNewComment", commentData).then(() => {
+        // Mise a jour des comments
+        this.getComments();
+        // Fermeture de la fenetre modale
+        this.closeModal();
+      });
+    },
+
+    // Sur création d'un comment
+    onModifyComment(){
+      // Mise a jour des comments
+      this.getComments();
+    },
+
+    modifyComment() {},
+
+  // Suprimer un comment
+
     deleteComment(commentId) {
       // console.log("deleteComment");
       this.$store
@@ -227,12 +265,15 @@ export default {
           },
         })
         .then(() => {
+          // Mise a jour des comments
           this.getComments();
         });
     },
-    modifyComment() {},
+
+    // Administrateur
 
     adminDeleteComment() {
+      // Mise a jour des comments
       this.getComments();
     },
 

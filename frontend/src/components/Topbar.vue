@@ -7,7 +7,7 @@
           alt="Logo de l'entreprise"
         />
       </div>
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">GROUPOMANIA VOUS ATTENDAIT</a>
       <div class="container">
         <div class="d-flex align-items-center justify-content-around">
           <div class="row">
@@ -40,19 +40,21 @@ import authApi from "../api/auth";
 export default {
   name: "AppTopbar",
   methods: {
+    // le click declenche un deleteMyAccount apres valifation de l'alerte
     deleteMyAccount() {
       const isConfirm = confirm(
         "Are you sure you want to delete your account?"
       );
 
       if (isConfirm) {
-        authApi
+        authApi // on contact endpoint dans auth
           .deleteMyAccount(Number(this.$store.state.auth.userId))
           .then(() => {
             this.logout();
           });
       }
     },
+    // le click declenche un logout
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");

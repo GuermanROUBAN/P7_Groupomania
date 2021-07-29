@@ -21,12 +21,14 @@
           />
         </div>
         <div class="row">
+          <!--Bouton validant ajout d'un commentaire-->
           <div class="col-12 col-lg-12">
-            <button type="submit" class="btn btn-info">Send my comment</button>
+            <button type="submit" class="btn btn-info">Envoyer mon commentaire</button>
           </div>
+          <!--Bouton retour emitant-->
           <div class="col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
-              Back to home
+              Retour
             </button>
             <app-error :error="error" v-if="error" />
           </div>

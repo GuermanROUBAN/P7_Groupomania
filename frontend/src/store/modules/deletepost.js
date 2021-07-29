@@ -13,7 +13,6 @@ let actions = {
 			postApi.deleteMyPost(postId, credentials)
 				.then(response => {
 					console.log('deleteMyPost response', response);
-
 					resolve();
 				})
 		})

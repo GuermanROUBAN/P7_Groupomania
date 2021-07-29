@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <Navigation />
-    <h1>Bienvenue {{ $store.state.auth.username }}</h1>
-    <div class="container">
+  <div class="container">
+    <div>
+      <!--Fenêtre chargante la navigation-->
+      <Navigation /><br />
+
+      <h1>Bienvenue {{ $store.state.auth.username }}</h1>
+      <br />
+
+      <!--Fenêtre chargante nouveau comment-->
       <div class="row">
         <div class="col-12 col-lg-12">
           <AddNewPost
@@ -17,6 +22,7 @@
         </div>
       </div>
     </div>
+    <br />
     <Post
       v-for="item in $store.state.post.posts"
       :key="item.id"
@@ -92,5 +98,7 @@ export default {
 </script>
 
 <style>
-h1{align-content: center;}
+h1 {
+  align-content: center;
+}
 </style>

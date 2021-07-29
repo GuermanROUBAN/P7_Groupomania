@@ -17,8 +17,7 @@ export default {
 		async getPosts({ commit }) {
 			try {
 				let res = await postApi.getPosts()
-				console.log(res);
-
+				//console.log(res);
 				commit('setPosts', res.data)
 				// req
 			} catch (err) {

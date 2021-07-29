@@ -1,10 +1,10 @@
+// Imports
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home'
-import Register from '@/views/Register' // import de notre page Register
+import Register from '@/views/Register' 
 import Login from '@/views/Login'
 import About from '@/views/About'
-// import Post from '@/views/Post'
 
 Vue.use(VueRouter)
 
