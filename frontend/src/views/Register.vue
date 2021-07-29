@@ -7,58 +7,63 @@
       />
     </div>
     <div>
- 
-    <form v-on:submit="Submit">
-      <div class="mb-3">
-        <label for="exampleInputUsername" class="form-label">Nom d'utilisateur</label>
-        <input
-          v-model="username"
-          type="text"
-          class="form-control"
-          id="exampleInputUsername"
-          aria-describedby="usernameHelp"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Votre adresse email</label>
-        <input
-          v-model="email"
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          required
-        />
-        <div id="emailHelp" class="form-text">
-          Ne communiquez jamais votre mot de passe a quelqu'un
+      <form v-on:submit="Submit">
+        <div class="mb-3">
+          <label for="exampleInputUsername" class="form-label"
+            >Nom d'utilisateur</label
+          >
+          <input
+            v-model="username"
+            type="text"
+            class="form-control"
+            id="exampleInputUsername"
+            aria-describedby="usernameHelp"
+            required
+          />
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Votre mot de passe</label>
-        <input
-          v-model="password"
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          required
-        />
-      </div>
-      <!-- <div class="mb-3 form-check">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Votre adresse email</label
+          >
+          <input
+            v-model="email"
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            required
+          />
+          <div id="emailHelp" class="form-text">
+            Ne communiquez jamais votre mot de passe a quelqu'un
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Votre mot de passe</label
+          >
+          <input
+            v-model="password"
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            required
+          />
+        </div>
+        <!-- <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
       </div> -->
-      <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-        <!-- au click on appel la methode Submit
+        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+          <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-        Valider
-      </button>
-      <!-- nom de notre module -->
-      <app-error :error="error" v-if="error" />
-      <!-- nom attribut error donne le nom de la varainte locale -->
-    </form>
-  </div>
+          Valider
+        </button>
+        <!-- nom de notre module -->
+        <app-error :error="error" v-if="error" />
+        <!-- nom attribut error donne le nom de la varainte locale -->
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -112,6 +117,13 @@ export default {
   },
   components: {
     AppError,
+  },
+  mounted() {
+    if (this.$store.state.auth.user != null) {
+      this.$router.push({
+        name: "Home",
+      });
+    }
   },
 };
 </script>

@@ -5,18 +5,19 @@
         <h1>POSTS</h1>
       </div>
     </div> -->
-    <div class="row">
-      <div class="col-12 col-lg-12">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
         <div class="card">
           <div class="card-body">
             <p class="card-text">{{ post.username }}</p>
             <p class="card-text">{{ post.createdAt }}</p>
+            <p class="card-text">{{ post.updatedAt }}</p>
             <div class="row">
               <AddNewComment
                 v-if="isOpen"
                 v-bind:postId="post.id"
                 @back="closeModal"
-                @commentCreated="onCommentCreated"
+                @sendCommentData="onCommentCreated"
               />
               <div class="col-12 col-lg-12">
                 <button
@@ -30,11 +31,24 @@
             </div>
             <div class="d-flex align-items-center justify-content-end">
               <div class="row">
-                <div class="col-12 col-lg-12">
-                  <button type="button" class="btn btn-warning">
+                <div class="col-12 col-lg-12" v-if="mypost">
+                  <button
+                    @click="modifyPost"
+                    type="button"
+                    class="btn btn-warning"
+                  >
                     Modifier mon poste
                   </button>
                 </div>
+                <OldPost
+                  v-if="postIsEdited"
+                  :defaultTitle="post.title"
+                  :defaultContent="post.content"
+                  :defaultAttachement="post.attachement"
+                  :postId="post.id"
+                  @sendPostData="editPost"
+                  @back="closeModifyPostModal"
+                />
               </div>
               <div class="row">
                 <div class="col-12 col-lg-12" v-if="mypost">
@@ -62,7 +76,9 @@
             <p class="card-text">{{ post.updatedAt }}</p>
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.content }}</p>
-            <div><img :src="post.attachement" /></div>
+            <div class="d-flex justify-content-center">
+              <img :src="post.attachement" />
+            </div>
           </div>
           <div class="row">
             <div class="col-12 col-lg-12" v-if="seeComments">
@@ -90,8 +106,10 @@
               v-for="comment of comments"
               :key="comment.id"
               :comment="comment"
+              :postId="post.id"
               @deleteComment="deleteComment"
               @adminDeleteComment="adminDeleteComment"
+              @modifyComment="onModifyComment"
             />
           </ul>
         </div>
@@ -106,11 +124,14 @@ import adminApi from "../api/admin";
 import Comment from "./Comment";
 import AddNewComment from "./AddNewComment.vue";
 import { mapState } from "vuex";
+import OldPost from "./AddNewPost.vue";
+import postApi from "../api/post";
 
 export default {
   name: "Post",
   data() {
     return {
+      postIsEdited: false,
       comments: null,
       commentsIsShow: false,
       isOpen: false,
@@ -156,11 +177,29 @@ export default {
           this.$emit("postDeleted");
         });
     },
-    onCommentCreated() {
-      // console.log("onCommentCreated");
-      this.getComments();
+    modifyPost() {
+      this.postIsEdited = true;
+    },
+    editPost({ postId, ...credentials }) {
+      postApi.modifyMyPost(postId, credentials).then(() => {
+        this.closeModifyPostModal();
+        this.$emit("modifyPost");
+      });
     },
 
+    closeModifyPostModal() {
+      this.postIsEdited = false;
+    },
+    onCommentCreated(commentData) {
+      this.$store.dispatch("createNewComment", commentData).then(() => {
+        this.getComments();
+        this.closeModal();
+      });
+    },
+    onModifyComment(){
+      this.getComments();
+    },
+    
     openModal() {
       // console.log(this.isOpen); // false
       this.isOpen = true;
@@ -214,12 +253,18 @@ export default {
   components: {
     Comment,
     AddNewComment,
+    OldPost,
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-.btn{
-  margin:20px;
+.btn {
+  margin: 20px;
+}
+
+img {
+  max-height: 400px;
+  max-width: 100%;
 }
 </style>

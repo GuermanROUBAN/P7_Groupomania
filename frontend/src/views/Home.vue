@@ -8,7 +8,7 @@
           <AddNewPost
             v-if="isOpen"
             @back="closeModal"
-            @postCreated="onPostCreated"
+            @sendPostData="onPostCreated"
           />
           <!-- false au depart et true apres method -->
           <button @click="openModal" type="button" class="btn btn-success">
@@ -23,6 +23,7 @@
       :post="item"
       @postDeleted="onPostDeleted"
       @adminDeletePost="onAdminDeletePost"
+      @modifyPost="onModifyPost"
     />
   </div>
 </template>
@@ -54,19 +55,23 @@ export default {
     closeModal() {
       this.isOpen = false;
     },
-    onPostCreated() {
-      console.log("onPostCreated");
-
-      this.getPosts();
+    onPostCreated(postData) {
+      this.$store.dispatch("createNewPost", postData).then(() => {
+        this.getPosts();
+        this.closeModal();
+      });
     },
     onPostDeleted() {
       console.log("onPostDeleted");
-
       this.getPosts();
     },
     getPosts() {
       this.$store.dispatch("post/getPosts");
     },
+    onModifyPost() {
+      this.getPosts();
+    },
+
     onCommentDeleted() {
       console.log("onCommentDeleted");
       this.getPosts();
@@ -77,8 +82,11 @@ export default {
     },
   },
   mounted() {
+    if (this.$store.state.auth.user === null) {
+      return this.$router.push("/");
+    }
+
     this.getPosts();
-    console.log(this.$store);
   },
 };
 </script>

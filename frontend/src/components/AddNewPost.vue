@@ -17,11 +17,10 @@
             aria-describedby="Titre du post"
             required
           />
-          <div id="Titre du post" class="form-text">
-          </div>
+          <div id="Titre du post" class="form-text"></div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputContent" class="image form-label" >Contenu</label>
+          <label for="exampleInputContent" class="form-label">Contenu</label>
           <input
             v-model="content"
             type="text"
@@ -36,7 +35,7 @@
           >
           <input
             v-model="attachement"
-            type="image"
+            type="text"
             class="form-control"
             id="exampleInputUrl"
             required
@@ -77,27 +76,35 @@ export default {
   },
   methods: {
     addNewPost() {
-      this.$store
-        .dispatch("createNewPost", {
-          userId: this.$store.state.auth.userId, // on reception userId de auth state
-          title: this.title,
-          content: this.content,
-          attachement: this.attachement,
-        })
-        .then(() => {
-          this.$emit("postCreated");
-          this.$emit("back");
-        });
+      this.$emit("sendPostData", {
+        userId: this.$store.state.auth.userId,
+        title: this.title,
+        content: this.content,
+        attachement: this.attachement,
+        postId: this.postId,
+      });
     },
   },
+  props: {
+    defaultTitle: {
+      default: "",
+    },
+    defaultContent: {
+      default: "",
+    },
+    defaultAttachement: {
+      default: "",
+    },
+    postId: {},
+  },
   data() {
+    console.log("default title value", this.defaultTitle);
     return {
-      title: "",
-      content: "",
-      attachement: "",
+      title: this.defaultTitle,
+      attachement: this.defaultAttachement,
+      content: this.defaultContent,   
     };
   },
-
   mounted() {
     console.log(this.$store.state);
   },
@@ -117,5 +124,4 @@ export default {
   height: 100%;
   background: cadetblue;
 }
-
 </style>

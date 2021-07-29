@@ -25,7 +25,9 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Votre mot de passe</label>
+          <label for="exampleInputPassword1" class="form-label"
+            >Votre mot de passe</label
+          >
           <input
             v-model="password"
             type="password"
@@ -104,6 +106,13 @@ export default {
   },
   components: {
     AppError,
+  },
+  mounted() {
+    if (this.$store.state.auth.user != null) {
+      this.$router.push({
+        name: "Home",
+      });
+    }
   },
 };
 </script>

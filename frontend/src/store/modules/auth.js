@@ -127,9 +127,10 @@ let actions = {
 				})
 				.catch()
 		})
-	}, logout() {
+	}, logout({commit}) {
 		localStorage.removeItem('token');
 		localStorage.removeItem('user');
+		commit("logout")
 	}
 }
 

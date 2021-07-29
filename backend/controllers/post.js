@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 
 // On aura besoin de npm install --save jsonwebtoken
 // const jwt = require('jsonwebtoken'); // on l'importe ici
@@ -83,13 +84,26 @@ exports.deletePost = (req, res, next) => {
 		//console.log(userId)
 		//console.log(post.idUSERS);
 		if (Number(userId) === Number(post.idUSERS)) {
-			Post.destroy({
-				where: {
-					id: Number(req.params.id)// convertion string in number
+			Comment.findAll().then(async (comments) => {
+				for (const comment of comments) {
+					// permet de supprimer tous le poste avec le commentaire
+					if (Number(req.params.id) === comment.idPOSTS) {
+						await Comment.destroy({
+							where: {
+								id: comment.id
+							}
+						})
+					}
 				}
-			})
-			return res.status(200).send({
-				message: "Post supprimé"
+				Post.destroy({
+					where: {
+						id: Number(req.params.id)// convertion string in number
+					}
+				}).then(() => {
+					res.status(200).json({
+						message: "Post supprimé"
+					})
+				})
 			})
 		} else {
 			return res.status(400).json({ "error": 'Suppression post non autorisée' })

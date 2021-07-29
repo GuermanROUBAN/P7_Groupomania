@@ -107,13 +107,13 @@ export default {
         authApi
           .deleteMyAccount(Number(this.$store.state.auth.userId))
           .then(() => {
-            this.$router.push("/register");
+            this.logout()
           });
       }
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("/about");
+      this.$router.push("/");
     },
   },
 };

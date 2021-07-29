@@ -14,14 +14,18 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-12" v-if="mycomment">
-        <button
-          @click="$emit('modifyComment', comment.id)"
-          type="button"
-          class="btn btn-warning"
-        >
+        <button @click="openModal" type="button" class="btn btn-warning">
           Modify my comment
         </button>
       </div>
+      <OldComment
+        v-if="isOpen"
+        :defaultComment="comment.comment"
+        :commentId="comment.id"
+        :postId="postId"
+        @sendCommentData="editComment"
+        @back="closeModal"
+      />
     </div>
     <div class="row">
       <div class="col-12 col-lg-12" v-if="isAdmin">
@@ -41,10 +45,19 @@
 <script>
 import { mapState } from "vuex"; // On recupere tous les states
 import adminApi from "../api/admin";
+import OldComment from "./AddNewComment.vue";
+import commentApi from '../api/comment';
+
 
 export default {
   props: {
-    comment: {},
+    comment: {}, // recoit de Post.vue
+    postId: {}, // recoit de Post.vue
+  },
+  data() {
+    return {
+      isOpen: false,
+    };
   },
   computed: {
     mycomment() {
@@ -62,6 +75,24 @@ export default {
         this.$emit("adminDeleteComment"); // on genere l evenement
       });
     },
+    openModal() {
+      this.isOpen = true;
+    },
+    closeModal() {
+      this.isOpen = false;
+    },
+    editComment({commentId, ...credentials}){
+      commentApi.modifyMyComment(commentId, credentials)
+      .then(()=> {
+        this.closeModal();
+        this.$emit('modifyComment'); // on genere l evenement pour Post.vue qui fait mise a jour de la page
+      })
+    }
+    
+  },
+
+  components: {
+    OldComment,
   },
 };
 </script>

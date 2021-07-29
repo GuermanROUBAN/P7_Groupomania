@@ -6,11 +6,13 @@
           <h1>{{ $store.state.auth.username }}</h1>
         </div>
       </div>
+      <!--le click genere methode addNewComment-->
       <form v-on:submit="addNewComment">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Comment</label>
-          <input
-            v-model="comment"
+          <!--v-model lie l input avec la data comment-->
+          <input  
+            v-model="comment" 
             type="text"
             class="form-control"
             id="exampleInputEmail1"
@@ -49,32 +51,33 @@ export default {
   },
   methods: {
     addNewComment() {
-      this.$store
-        .dispatch("createNewComment", {
-          userId: Number(this.$store.state.auth.userId), // on reception userId de auth state
-          postId: this.postId,
-          comment: this.comment,
-        })
-        .then(() => {
-          this.$emit("commentCreated");
-          this.$emit("back");
-        });
+      this.$emit("sendCommentData", { // envoie les données
+        userId: Number(this.$store.state.auth.userId),
+        postId: this.postId,
+        comment: this.comment,
+        commentId: this.commentId,
+      });
     },
   },
   data() {
     return {
-      comment: "",
+      comment: this.defaultComment, // on recoit des props
     };
   },
 
-  mounted() {
-    console.log(this.$store.state);
-  },
   components: {
     AppError,
   },
-  props: {
+  props: {  // on recoit les données des autres composants
     postId: {},
+    defaultComment: {
+      default: "",
+    },
+    commentId: {},
+  },
+  
+  mounted() {
+    console.log(this.$store.state);
   },
 };
 </script>
