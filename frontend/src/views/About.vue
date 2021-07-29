@@ -7,12 +7,12 @@
       <div class="col-12 col-lg-12">
         <div class="row">
           <div class="about d-flex justify-content-center">
-            <h1>WELCOME TO SOCIAL WORK</h1>
+            <h1>BIENVENUE DANS VOTRE RESEAU</h1>
           </div>
           <div class="row">
-            <div class="col-12 col-lg-12">
-              <router-link to="/login" class="btn">LOGIN</router-link>
-              <router-link to="/register" class="btn">REGISTER</router-link>
+            <div class="actions col-12 col-lg-12 d-flex justify-content-around">
+              <router-link to="/login" class="btn btn-lg">Se connecter</router-link>
+              <router-link to="/register" class="btn btn-lg">S'inscrire</router-link>
             </div>
           </div>
         </div>
@@ -45,10 +45,15 @@ export default {
 <style>
 .container {
   height: auto;
+ 
 }
 
 .banner {
   height: 300px;
   width: 100%;
 }
+.actions{
+  margin-top: 40px;
+}
+
 </style> 

@@ -24,33 +24,39 @@
                   class="btn btn-success"
                   @click="openModal"
                 >
-                  Add my comment
+                  Ajouter un commentaire
                 </button>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 col-lg-12">
-                <button type="button" class="btn btn-warning">
-                  Modify my post
-                </button>
+            <div class="d-flex align-items-center justify-content-end">
+              <div class="row">
+                <div class="col-12 col-lg-12">
+                  <button type="button" class="btn btn-warning">
+                    Modifier mon poste
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-12 col-lg-12" v-if="isAdmin">
-                <button @click="adminDeletePost" type="button" class="btn btn-info">
-                  Delete user post
-                </button>
+              <div class="row">
+                <div class="col-12 col-lg-12" v-if="mypost">
+                  <button
+                    @click="deletePost"
+                    type="button"
+                    class="btn btn-danger"
+                  >
+                    Supprimer mon poste
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-12 col-lg-12" v-if="mypost">
-                <button
-                  @click="deletePost"
-                  type="button"
-                  class="btn btn-danger"
-                >
-                  Delete my post
-                </button>
+              <div class="row">
+                <div class="col-12 col-lg-12" v-if="isAdmin">
+                  <button
+                    @click="adminDeletePost"
+                    type="button"
+                    class="btn btn-info"
+                  >
+                    Admin sup. post
+                  </button>
+                </div>
               </div>
             </div>
             <p class="card-text">{{ post.updatedAt }}</p>
@@ -99,7 +105,7 @@ import commentApi from "../api/comment";
 import adminApi from "../api/admin";
 import Comment from "./Comment";
 import AddNewComment from "./AddNewComment.vue";
-import { mapState } from "vuex"; 
+import { mapState } from "vuex";
 
 export default {
   name: "Post",
@@ -131,7 +137,8 @@ export default {
     //   adminDeleteComment() {
     //     return this.post.idUSERS === Number(this.$store.state.auth.userId);
     //   },
-    ...mapState({ // etat du state
+    ...mapState({
+      // etat du state
       isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
     }),
   },
@@ -191,8 +198,7 @@ export default {
     },
 
     adminDeletePost() {
-    adminApi.deleteUserPost(this.post.id)
-    .then(() => {
+      adminApi.deleteUserPost(this.post.id).then(() => {
         this.$emit("adminDeletePost"); // on genere l evenement
       });
     },
@@ -211,3 +217,9 @@ export default {
   },
 };
 </script>
+
+<style lang="postcss" scoped>
+.btn{
+  margin:20px;
+}
+</style>

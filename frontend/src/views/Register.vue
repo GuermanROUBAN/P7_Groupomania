@@ -1,8 +1,16 @@
 <template>
-  <div>
+  <div class="container">
+    <div class="banner d-flex justify-content-center">
+      <img
+        :src="require('/src/assets/icon-above-font.png')"
+        alt="Logo de l'entreprise"
+      />
+    </div>
+    <div>
+ 
     <form v-on:submit="Submit">
       <div class="mb-3">
-        <label for="exampleInputUsername" class="form-label">Username</label>
+        <label for="exampleInputUsername" class="form-label">Nom d'utilisateur</label>
         <input
           v-model="username"
           type="text"
@@ -13,7 +21,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <label for="exampleInputEmail1" class="form-label">Votre adresse email</label>
         <input
           v-model="email"
           type="email"
@@ -23,11 +31,11 @@
           required
         />
         <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
+          Ne communiquez jamais votre mot de passe a quelqu'un
         </div>
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <label for="exampleInputPassword1" class="form-label">Votre mot de passe</label>
         <input
           v-model="password"
           type="password"
@@ -43,13 +51,14 @@
       <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
         <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-        Submit
+        Valider
       </button>
       <!-- nom de notre module -->
       <app-error :error="error" v-if="error" />
       <!-- nom attribut error donne le nom de la varainte locale -->
     </form>
   </div>
+    </div>
 </template>
 
 <script>

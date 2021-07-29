@@ -8,50 +8,49 @@
       </div>
       <form v-on:submit="addNewPost">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Title</label>
+          <label for="exampleInputTitle" class="form-label">Titre</label>
           <input
             v-model="title"
             type="text"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="exampleInputTitle"
+            aria-describedby="Titre du post"
             required
           />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+          <div id="Titre du post" class="form-text">
           </div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Content</label>
+          <label for="exampleInputContent" class="image form-label" >Contenu</label>
           <input
             v-model="content"
             type="text"
             class="form-control"
-            id="exampleInputPassword1"
+            id="exampleInputContent"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >Attachement</label
+          <label for="exampleInputUrl" class="form-label"
+            >Inserez ici l'url</label
           >
           <input
             v-model="attachement"
-            type="text"
+            type="image"
             class="form-control"
-            id="exampleInputPassword1"
+            id="exampleInputUrl"
             required
           />
         </div>
         <div class="row">
           <div class="col-12 col-lg-12">
-            <button type="submit" class="btn btn-info">Send my post</button>
+            <button type="submit" class="btn btn-info">Poster</button>
             <!-- au click on appel la methode Submit
 	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           </div>
           <div class="col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
-              Back to home
+              Retour
             </button>
             <app-error :error="error" v-if="error" />
             <!-- au click on appel la methode Submit
@@ -118,4 +117,5 @@ export default {
   height: 100%;
   background: cadetblue;
 }
+
 </style>

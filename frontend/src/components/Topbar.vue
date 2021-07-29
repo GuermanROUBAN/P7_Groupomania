@@ -67,22 +67,24 @@
         </form> -->
       </div>
       <div class="container">
-        <div class="row">
-          <div class="col-12 col-lg-12">
-            <button
-              @click="deleteMyAccount"
-              type="button"
-              class="btn btn-danger"
-            >
-              Delete my Account
-            </button>
+        <div class="d-flex align-items-center justify-content-around">
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <button @click="logout" type="button" class="btn btn-warning">
+                Se deconnecter
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-lg-12">
-            <button @click="logout" type="button" class="btn btn-warning">
-              LogOut
-            </button>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <button
+                @click="deleteMyAccount"
+                type="button"
+                class="btn btn-danger float-right"
+              >
+                Supprimer mon compte
+              </button>
+            </div>
           </div>
         </div>
       </div>
