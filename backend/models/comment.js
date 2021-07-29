@@ -3,7 +3,6 @@ const sequelize = require('../database_connection');
 
 const { Model, DataTypes } = require('sequelize');
 
-// TODO > Controle Associations
 class Comment extends Model {
   static associate(models) {
     // define association here

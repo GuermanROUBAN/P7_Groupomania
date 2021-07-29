@@ -3,7 +3,7 @@ const sequelize = require('../database_connection');
 
 const { Model, DataTypes } = require('sequelize');
 
-// TODO > Controle Associations
+
 class Post extends Model {
   static associate(models) {
     // define association here

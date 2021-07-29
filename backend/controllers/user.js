@@ -1,28 +1,21 @@
+// Imports
 // Le controlleur logique metier login a besoin de ses deux MDW
-
-// On aura besoin du modele de cryptage pour les mots de passe npm install --save bcrypt
-// const bcrypt = require('bcrypt'); //on l'importe ici
 
 // Composant JavaScript pour calculer le SHA256 des chaînes
 const sha256 = require('sha256');
-
 // On aura besoin de npm install --save jsonwebtoken
 const jwt = require('jsonwebtoken'); // on l'importe ici
-
 // On aura besoin de notre model MDW
 const User = require('../models/user');
-
 // On importe le validateur de mot de passe
 const passwordValidator = require('../middleware/passwordValidator');
-
 // On importe crypto qui va coder l'email de l'utilisateur
 const CryptoJS = require("crypto-js");
 
 
 // Enregistrement de nos utilisateurs
-
 exports.signup = (req, res, next) => { // on exporte la fonction vers route
-	console.log(req.body)
+	//console.log(req.body)
 	if (passwordValidator.validate(req.body.password)) { // controle de la validation du mot de passe
 		let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
 		let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
@@ -30,7 +23,7 @@ exports.signup = (req, res, next) => { // on exporte la fonction vers route
 		User.count({ // Count the occurrences of elements in the database
 			where: { email: emailHash } // cherche les emails
 		}).then((data) => {
-			console.log('--ICI AFFICHAGE CREATION USER --' + data)
+			//console.log('--ICI AFFICHAGE CREATION USER --' + data)
 			if (data === 0) { // si aucun email identique trouvé 
 				let hash = sha256(req.body.password) // hashage du password
 				const user = new User({// notre modele sequelize va créér un nouveau user
@@ -61,7 +54,6 @@ exports.signup = (req, res, next) => { // on exporte la fonction vers route
 };
 
 // Connecter les utilisateurs existants
-
 exports.login = (req, res, next) => { // on exporte la fonction vers route
 	let key = CryptoJS.enc.Hex.parse(process.env.Crypto_key);
 	let iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv);
@@ -72,12 +64,11 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 		}
 	})
 		.then(user => {
-			console.log(user)
 			if (!user) { // si email pas bon on renvoie une erreur
 				return res.status(401).json({ error: "Utilisateur non trouvé !" });
 			}// Si trouvé alors 
 			let hash = sha256(req.body.password)
-			console.log("-- ICI AFFICHE id de l'UTILISATEUR TROUVE --" + user.id)
+			//console.log("-- ICI AFFICHE id de l'UTILISATEUR TROUVE --" + user.id)
 			if (user.password === hash) {
 				res.status(200).json({ // si valable (true) on va renvoyer au F-e un id et un token d'authentification
 					user, // renvoi l'id de l'utilisateur
@@ -95,7 +86,6 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 };
 
 // Supprimer un utilisateur
-
 exports.deleteUser = async (req, res, next) => { // on exporte la fonction vers route delete
 	try {
 		User.destroy({ // Delete multiple instances
@@ -114,7 +104,6 @@ exports.deleteUser = async (req, res, next) => { // on exporte la fonction vers 
 }
 
 // Chercher un Utilisateur
-
 exports.getOneUser = (req, res, next) => {
 	const token = req.headers.authorization.split(" ")[1];
 	const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
@@ -132,9 +121,7 @@ exports.getOneUser = (req, res, next) => {
 		}));
 };
 
-
 // Chercher tous les utilisateurs
-
 exports.getAllUsers = (req, res, next) => {
 	User.findAll()
 		.then((users) => res.status(200).json({

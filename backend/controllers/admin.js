@@ -1,8 +1,9 @@
+// Imports des models
 const User = require('../models/user')
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 
-
+// On vérifie si l'utilisateur est l'Administrateur
 function checkIfAdmin(req, res, handler) {
 	let userId = req.body.userId // On a recu l'id de l'utilisateur
 	User.findOne({
@@ -23,9 +24,10 @@ function checkIfAdmin(req, res, handler) {
 		})
 }
 
+// L'admin supprime un post
 exports.adminRemovePost = (req, res) => {
 	checkIfAdmin(req, res, function (result) {
-		console.log("contrôle ADMIN " + result);
+		//console.log("contrôle ADMIN " + result);
 		if (!result) {
 			res.status(404).json({ "error": "Accès uniquement administrateur !" })
 		} else {
@@ -54,9 +56,10 @@ exports.adminRemovePost = (req, res) => {
 	})
 }
 
+// L'admin supprime un comment
 exports.adminRemoveComment = (req, res) => {
 	checkIfAdmin(req, res, function (result) {
-		console.log("contrôle ADMIN " + result);
+		//console.log("contrôle ADMIN " + result);
 		if (!result) {
 			res.status(404).json({ "error": "Accès uniquement administrateur !" })
 		} else {
@@ -72,10 +75,10 @@ exports.adminRemoveComment = (req, res) => {
 	})
 }
 
-
+// L'admin supprime un utilisteur
 exports.adminRemoveUser = (req, res) => {
 	checkIfAdmin(req, res, function (result) {
-		console.log("contrôle ADMIN " + result);
+		//console.log("contrôle ADMIN " + result);
 		if (!result) {
 			res.status(404).json({ "error": "Accès uniquement administrateur !" })
 		} else {

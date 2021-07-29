@@ -1,7 +1,5 @@
 // Imports
 let express = require('express');
-// const userCtrl = require('./controllers/user')
-/* récupération de l'application express */
 const app = require('./app');
 
 // Configure routes

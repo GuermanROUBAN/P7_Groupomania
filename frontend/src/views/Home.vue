@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <h1>HOME PAGE OF {{ $store.state.auth.username }}</h1>
+    <h1>Bienvenue {{ $store.state.auth.username }}</h1>
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-12">
@@ -12,7 +12,7 @@
           />
           <!-- false au depart et true apres method -->
           <button @click="openModal" type="button" class="btn btn-success">
-            Add New Post
+            Ajouter un nouveau post
           </button>
         </div>
       </div>
@@ -90,3 +90,7 @@ export default {
   },
 };
 </script>
+
+<style>
+h1{align-content: center;}
+</style>

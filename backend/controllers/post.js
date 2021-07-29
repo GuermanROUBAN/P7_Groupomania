@@ -6,11 +6,9 @@ const Comment = require('../models/comment');
 // const jwt = require('jsonwebtoken'); // on l'importe ici
 
 // Création d'un post
-
 exports.create = (req, res, next) => {
 
 	let idUSERS = req.body.userId;
-	console.log('HOHOHOHO', idUSERS);
 	let title = req.body.title;
 	let content = req.body.content;
 	let attachement = req.body.attachement;
@@ -31,7 +29,6 @@ exports.create = (req, res, next) => {
 }
 
 // Modification d'un post
-
 exports.modifyPost = (req, res, next) => {
 
 	let title = req.body.title;
@@ -56,7 +53,6 @@ exports.modifyPost = (req, res, next) => {
 				{
 					where:
 						{ id: idPost },
-
 				}) // permet de mettre à jour post, {objet} que nous passons en argument.
 				// Nous utilisons aussi id passé dans la demande et le remplacons par le post passé comme second argument.
 				.then(() => res.status(200).json({ message: 'Post modifiée !' }))
@@ -69,7 +65,6 @@ exports.modifyPost = (req, res, next) => {
 
 
 // Supprimer d'un post
-
 exports.deletePost = (req, res, next) => {
 
 	let idPost = req.params.id;
@@ -81,8 +76,6 @@ exports.deletePost = (req, res, next) => {
 		if (!post) {
 			return res.status(400).json({ "error": 'Post non trouvé' })
 		}
-		//console.log(userId)
-		//console.log(post.idUSERS);
 		if (Number(userId) === Number(post.idUSERS)) {
 			Comment.findAll().then(async (comments) => {
 				for (const comment of comments) {
@@ -112,7 +105,6 @@ exports.deletePost = (req, res, next) => {
 }
 
 // Chercher un post
-
 exports.getOnePost = (req, res, next) => {
 
 	let postId = req.params.id; // id apparait dans la ligne de la reqete
@@ -131,7 +123,6 @@ exports.getOnePost = (req, res, next) => {
 };
 
 // Chercher tous les posts
-
 exports.getAllPosts = (req, res, next) => {
 	Post.findAll()
 		.then((posts) => {
@@ -156,9 +147,6 @@ exports.getAllPosts = (req, res, next) => {
 						id: copyPost.id
 					}
 				})
-
-				//console.log(newMapPosts);
-
 				res.status(200).json({
 					posts: newMapPosts
 				})
@@ -174,7 +162,6 @@ exports.getAllPosts = (req, res, next) => {
 
 
 // Chercher tous les posts d'un user
-
 exports.getAllPostForUser = (req, res, next) => {
 
 	let userId = Number(req.params.id); // id apparait dans la ligne de la reqete
@@ -190,7 +177,6 @@ exports.getAllPostForUser = (req, res, next) => {
 				posts
 			})
 		})
-
 		.catch((err) => res.status(401).json({
 			err
 		}));

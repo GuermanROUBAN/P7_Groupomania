@@ -2,7 +2,7 @@
   <div class="container">
     <div class="banner d-flex justify-content-center">
       <img
-        :src="require('/src/assets/icon-above-font.png')"
+        :src="require('/src/assets/icon-above-font.svg')"
         alt="Logo de l'entreprise"
       />
     </div>

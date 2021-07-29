@@ -1,11 +1,10 @@
+// Imports
 const Comment = require('../models/comment');
 const User = require('../models/user');
-
 // On aura besoin de npm install --save jsonwebtoken
 const jwt = require('jsonwebtoken'); // on l'importe ici
 
 // Creation d'un comment
-
 exports.create = (req, res, next) => {
 
 	let idUSERS = req.body.userId;
@@ -25,24 +24,19 @@ exports.create = (req, res, next) => {
 		.catch(error => res.status(400).json({ error }));
 }
 
-
 // Modification comment
-
 exports.modifyComment = (req, res, next) => {
-
 	// On fait un req dans body et params
 	let text = req.body.comment;
-	let idComment = req.params.id; // on capte l'id du post
+	let idComment = req.params.id; // on capte l'id du comment
 	let userId = req.body.userId // on capte l'id de l'utilisateur
 
-	Comment.findOne({ // on cherche le poste avec le bon id
+	Comment.findOne({ // on cherche le comment avec le bon id
 		where: { id: idComment } // le numero du commentaire dans la ligne params
 	}).then(comment => {
-		if (!comment) { // le poste existe t'il
+		if (!comment) { // le comment existe t'il
 			return res.status(400).json({ "error": 'comment non trouvé' })
 		}
-		console.log('WAHHHH :' + userId)
-		console.log('BAHHHH:' + comment.idUSERS);
 		if (Number(userId) === Number(comment.idUSERS)) { // on controle si l'id qui fait la requete correspond avec l'id de l'utilisateur dans le post
 			// Number permet de le donner le meme type (Nombre)
 			Comment.update({
@@ -52,10 +46,9 @@ exports.modifyComment = (req, res, next) => {
 				{
 					where:
 						{ id: idComment },
-
-				}) // permet de mettre à jour post, {objet} que nous passons en argument.
-				// Nous utilisons aussi id passé dans la demande et le remplacons par le post passé comme second argument.
-				.then(() => res.status(200).json({ message: 'post modifiée !' }))
+				}) // permet de mettre à jour comment, {objet} que nous passons en argument.
+				// Nous utilisons aussi id passé dans la demande et le remplacons par le comment passé comme second argument.
+				.then(() => res.status(200).json({ message: 'comment modifiée !' }))
 				.catch(error => res.status(400).json({ error }));
 		} else {
 			return res.status(400).json({ "error": 'changement comment interdit !' })
@@ -63,15 +56,11 @@ exports.modifyComment = (req, res, next) => {
 	})
 }
 
-
-
-// Supprimer un utilisateur
-
+// Supprimer un comment
 exports.deleteComment = (req, res, next) => {
 
 	let idComment = req.params.id;
 	let userId = req.body.userId
-
 
 	Comment.findOne({
 		where: { id: idComment }
@@ -79,8 +68,6 @@ exports.deleteComment = (req, res, next) => {
 		if (!comment) {
 			return res.status(400).json({ "error": 'comment non trouvé' })
 		}
-		console.log('BOOOOOM :' + userId)
-		console.log(comment.idUSERS);
 		if (Number(userId) === Number(comment.idUSERS)) {
 			Comment.destroy({
 				where: {
@@ -96,8 +83,7 @@ exports.deleteComment = (req, res, next) => {
 	})
 }
 
-// Chercher un Utilisateur
-
+// Chercher un comment
 exports.getOneComment = (req, res, next) => {
 
 	let commentId = req.params.id; // id apparait dans la ligne de la reqete
@@ -115,10 +101,7 @@ exports.getOneComment = (req, res, next) => {
 		}));
 };
 
-
-
-// Chercher tous les utilisateurs
-
+// Chercher tous les comments
 exports.getAllComments = (req, res, next) => {
 	Comment.findAll()
 		.then((comments) => {
@@ -144,9 +127,6 @@ exports.getAllComments = (req, res, next) => {
 						username: copyComment.username
 					}
 				})
-
-				console.log('hahahaha', newMapComments)
-
 				res.status(200).json({
 					comments: newMapComments
 				})
@@ -159,11 +139,10 @@ exports.getAllComments = (req, res, next) => {
 
 
 // Chercher tous les comments d'un post
-
 exports.getAllCommentForPost = (req, res, next) => {
 
 	let postId = Number(req.params.id); // id apparait dans la ligne de la reqete
-	console.log(postId);
+
 	Comment.findAll({
 		where: {
 			idPOSTS: postId,
@@ -194,8 +173,6 @@ exports.getAllCommentForPost = (req, res, next) => {
 					}
 				})
 
-				console.log('newMapComments', newMapComments);
-
 				res.status(200).json({
 					comments: newMapComments
 				})
@@ -208,19 +185,18 @@ exports.getAllCommentForPost = (req, res, next) => {
 };
 
 
-// Chercher tous les comments d'un post
+// Chercher tous les comments d'un user
 
 exports.getAllCommentForUser = (req, res, next) => {
 
 	let userId = Number(req.params.id); // id apparait dans la ligne de la reqete
-	console.log(userId);
+
 	Comment.findAll({
 		where: {
 			idUSERS: userId,
 		},
 	})
 		.then((comments) => {
-			console.log(comments);
 			res.status(200).json({
 				comments
 			})

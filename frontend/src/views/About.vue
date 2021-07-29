@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="banner d-flex justify-content-center">
-      <img :src="require('/src/assets/icon-above-font.png')" alt="Logo de l'entreprise" />
+      <img :src="require('/src/assets/icon-above-font.svg')" alt="Logo de l'entreprise" />
     </div>
     <div class="row">
       <div class="col-12 col-lg-12">

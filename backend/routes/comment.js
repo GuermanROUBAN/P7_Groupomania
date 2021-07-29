@@ -1,7 +1,4 @@
-
-
 // Imports
-
 const express = require('express');
 const router = express.Router();
 const commentCtrl = require('../controllers/comment');
@@ -26,10 +23,11 @@ router.get('/read/:id', commentCtrl.getOneComment) // auth inutile car pas besoi
 // On va aller chercher la liste des posts dans la BD
 router.get('/read-all-comments', commentCtrl.getAllComments); //auth inutile car pas besoin d'etre logé pour voir tous les posts
 
+// On va aller chercher la liste des comments pour un post
 router.get('/posts-comments/:id', commentCtrl.getAllCommentForPost);
 
+// On va aller chercher la liste des comments pour un user
 router.get('/users-comments/:id', commentCtrl.getAllCommentForUser);
-
 
 // Exports
 module.exports = router;
