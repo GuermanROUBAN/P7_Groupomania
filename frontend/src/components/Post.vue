@@ -4,11 +4,16 @@
       <div class="col-12 col-lg-8">
         <div class="card">
           <div class="card-body">
-            <p class="card-text">{{ post.username }}</p>
-            <p class="card-text">Créé le: {{ creationPostDate }}</p>
-            <p class="card-text">Modifié le: {{ modificationPostDate  }}</p>
+            <p class="card-text">
+              par <span class="username">{{ post.username }}</span>
+            </p>
+            <p class="card-text">
+              <span class="dates">Créé le: {{ creationPostDate }}</span>
+            </p>
+            <p class="card-text">
+              <span class="dates">Modifié le: {{ modificationPostDate }}</span>
+            </p>
             <div class="row">
-
               <!--Fenêtre chargante nouveau comment-->
               <!-- : => v-bind => props -->
               <!-- @ => v-on => evenement-->
@@ -20,7 +25,7 @@
               />
 
               <!--Bouton ajouter mon comment-->
-              <div class="col-12 col-lg-12">
+              <div class="col-12 col-lg-12 d-flex justify-content-center">
                 <button
                   type="button"
                   class="btn btn-success"
@@ -131,7 +136,6 @@
               @modifyComment="onModifyComment"
             />
           </ul>
-
         </div>
       </div>
     </div>
@@ -146,7 +150,7 @@ import AddNewComment from "./AddNewComment.vue";
 import { mapState } from "vuex";
 import OldPost from "./AddNewPost.vue";
 import postApi from "../api/post";
-import dateTimeFormat from"../helpers/date"
+import dateTimeFormat from "../helpers/date";
 
 export default {
   name: "Post",
@@ -162,7 +166,6 @@ export default {
     };
   },
   computed: {
-
     // Controle si le post est bien celui de l'utilisateur => affiche bouton
     mypost() {
       return this.post.idUSERS === Number(this.$store.state.auth.userId);
@@ -181,20 +184,18 @@ export default {
     // etat du state
     // on creer la propriete isAdmin qui va chercher true or false dans objet user
     ...mapState({
-      isAdmin: (state) => state.auth.user.isAdmin, 
+      isAdmin: (state) => state.auth.user.isAdmin,
     }),
 
-    creationPostDate(){
-      return dateTimeFormat(this.post.createdAt)
+    creationPostDate() {
+      return dateTimeFormat(this.post.createdAt);
     },
 
-    modificationPostDate(){
-    return dateTimeFormat(this.post.updatedAt)
+    modificationPostDate() {
+      return dateTimeFormat(this.post.updatedAt);
     },
-
   },
   methods: {
-
     // Posts
 
     // Supression de posts
@@ -265,14 +266,14 @@ export default {
     },
 
     // Sur création d'un comment
-    onModifyComment(){
+    onModifyComment() {
       // Mise a jour des comments
       this.getComments();
     },
 
     modifyComment() {},
 
-  // Supprimer un comment
+    // Supprimer un comment
     deleteComment(commentId) {
       // console.log("deleteComment");
       this.$store
@@ -320,8 +321,25 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+
+
+.card-body{
+  background-color: lightskyblue;
+}
+
 .btn {
   margin: 20px;
+  width:60%;
+}
+
+.username {
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+.dates {
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 img {

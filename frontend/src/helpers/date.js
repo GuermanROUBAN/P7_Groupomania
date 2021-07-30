@@ -13,9 +13,9 @@ const [date, time] = new Intl.DateTimeFormat('br-FR', {
 
 const dateParts = date.split('/');
 
-[dateParts[1], dateParts[0]] = [dateParts[0], dateParts[1]];
+	[dateParts[0], dateParts[1]];
 
-return `${dateParts.join('/')} ${time}`
+return `${dateParts.join('/')} ${time};`
 }
 
 export default dateTimeFormat

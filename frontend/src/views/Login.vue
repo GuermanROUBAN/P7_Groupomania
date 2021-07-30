@@ -1,55 +1,56 @@
 <template>
   <div class="container">
-    <div class="banner d-flex justify-content-center">
+    <div class="banner-logo d-flex justify-content-center">
       <img
-        :src="require('/src/assets/icon-above-font.svg')"
+        :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
         alt="Logo de l'entreprise"
       />
     </div>
-    <div>
-      <form v-on:submit="Submit">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Votre adresse email</label
-          >
-          <input
-            v-model="email"
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            required
-          />
-          <div id="emailHelp" class="form-text">
-            Ne communiquez jamais votre mot de passe a quelqu'un
-          </div>
+    <form v-on:submit="Submit">
+      <div class="champs mb-3 w-75">
+        <label for="exampleInputEmail1" class="form-label"
+          >Entrez votre email</label
+        >
+        <input
+          v-model="email"
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          required
+        />
+        <div id="emailHelp" class="form-text">
+          Ne communiquez jamais votre mot de passe à quelqu'un
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >Votre mot de passe</label
-          >
-          <input
-            v-model="password"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            required
-          />
-        </div>
+      </div>
+      <div class="champs mb-3 w-75">
+        <label for="exampleInputPassword1" class="form-label"
+          >Entrez votre mot de passe</label
+        >
+        <input
+          v-model="password"
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          aria-describedby="passwordHelp"
+          required
+        />
+      </div>
 
+      <div class="btn-validation d-flex justify-content-center">
         <!-- Bouton Valider -->
         <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
           <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           Valider
         </button>
-
-        <!-- nom de notre module -->
+      </div>
+      <!-- nom de notre module -->
+      <div class="message-error d-flex justify-content-center">
         <app-error :error="error" v-if="error" />
         <!-- nom attribut error donne le nom de la varainte locale -->
-      
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -116,3 +117,28 @@ export default {
   },
 };
 </script>
+
+
+<style>
+.champs {
+  margin: auto;
+}
+
+.form-label {
+  color: #454545;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.form-text {
+  color: #454545;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.message-error{
+  color:#333333;
+  font-weight: 900;
+}
+
+</style>

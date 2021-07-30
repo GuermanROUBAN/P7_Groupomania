@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <div class="banner d-flex justify-content-center">
+    <div class="banner-logo lg-6 d-flex justify-content-center">
       <img
-        :src="require('/src/assets/icon-above-font.svg')"
+        :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
         alt="Logo de l'entreprise"
       />
     </div>
     <div>
       <form v-on:submit="Submit">
-        <div class="mb-3">
+        <div class="champs mb-3 w-75">
           <label for="exampleInputUsername" class="form-label"
             >Nom d'utilisateur</label
           >
@@ -21,7 +21,7 @@
             required
           />
         </div>
-        <div class="mb-3">
+        <div class="champs mb-3 w-75">
           <label for="exampleInputEmail1" class="form-label"
             >Votre adresse email</label
           >
@@ -37,7 +37,7 @@
             Ne communiquez jamais votre mot de passe a quelqu'un
           </div>
         </div>
-        <div class="mb-3">
+        <div class="champs mb-3 w-75">
           <label for="exampleInputPassword1" class="form-label"
             >Votre mot de passe</label
           >
@@ -50,16 +50,23 @@
           />
         </div>
 
-        <!-- Bouton Valider -->
-        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-          <!-- au click on appel la methode Submit
+        <div class="btn-validation d-flex justify-content-center">
+          <!-- Bouton Valider -->
+          <button
+            type="submit"
+            class="btn btn-primary"
+            :disabled="isSubmitting"
+          >
+            <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-          Valider
-        </button>
-        
+            Valider
+          </button>
+        </div>
         <!-- nom de notre module -->
-        <app-error :error="error" v-if="error" />
-        <!-- nom attribut error donne le nom de la varainte locale -->
+        <div class="message-error d-flex justify-content-center">
+          <app-error :error="error" v-if="error" />
+          <!-- nom attribut error donne le nom de la varainte locale -->
+        </div>
       </form>
     </div>
   </div>
