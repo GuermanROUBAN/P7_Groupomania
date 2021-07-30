@@ -169,9 +169,9 @@ export default {
       return this.comments.id === Number(this.$store.state.auth.userId);
     },
 
+    // etat du state
+    // on creer la propriete isAdmin qui va chercher true or false dans objet user
     ...mapState({
-      // etat du state
-      // on creer la propriete isAdmin qui va chercher true or false dans objet user
       isAdmin: (state) => state.auth.user.isAdmin, 
     }),
   },
@@ -253,8 +253,7 @@ export default {
 
     modifyComment() {},
 
-  // Suprimer un comment
-
+  // Supprimer un comment
     deleteComment(commentId) {
       // console.log("deleteComment");
       this.$store
@@ -272,11 +271,13 @@ export default {
 
     // Administrateur
 
+    // Supprimer un comment
     adminDeleteComment() {
       // Mise a jour des comments
       this.getComments();
     },
 
+    // Supprimer un post
     adminDeletePost() {
       adminApi.deleteUserPost(this.post.id).then(() => {
         this.$emit("adminDeletePost"); // on genere l evenement

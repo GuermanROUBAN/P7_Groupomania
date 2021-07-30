@@ -51,16 +51,14 @@
     {{ comment.createdAt }} {{ comment.updatedAt }}<br /><br />
     <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
     {{ comment.comment }}<br />
-
-    
   </li>
 </template>
 
 <script>
 import { mapState } from "vuex"; // On recupere tous les states
-import adminApi from "../api/admin";
-import OldComment from "./AddNewComment.vue";
-import commentApi from "../api/comment";
+import adminApi from "../api/admin"; // On communique avec le Back End
+import OldComment from "./AddNewComment.vue"; // On se sert du modele de AddNewComment
+import commentApi from "../api/comment"; // On communique avec le Back End
 
 export default {
   props: {
@@ -73,29 +71,42 @@ export default {
     };
   },
   computed: {
+    // Controle si le commentaire est bien celui de l'utilisateur => affiche bouton
     mycomment() {
       return this.comment.idUSERS === Number(this.$store.state.auth.userId);
     },
+    // on va chercer dans l'etat de la map si l'user est l'administrateur
     ...mapState({
       isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
     }),
   },
   methods: {
+
+    // Commentaires
+
+    // Suppression par l'utilisateur
     deleteComment() {
       adminApi.deleteUserComment(this.comment.id).then(() => {
-        this.$emit("adminDeleteComment"); // on genere l evenement
+        // on genere l evenement
+        this.$emit("adminDeleteComment"); 
       });
     },
+
+    // Actions universelles pour ouvrir/fermer une fenetre modale
     openModal() {
       this.isOpen = true;
     },
     closeModal() {
       this.isOpen = false;
     },
+
+    // Modification d'un commentaire
     editComment({ commentId, ...credentials }) {
       commentApi.modifyMyComment(commentId, credentials).then(() => {
+        // on ferme la fenetre modale
         this.closeModal();
-        this.$emit("modifyComment"); // on genere l evenement pour Post.vue qui fait mise a jour de la page
+        // on genere l evenement pour Post.vue qui fait mise a jour de la page
+        this.$emit("modifyComment");
       });
     },
   },
