@@ -13,7 +13,6 @@ let actions = {
 			postApi.createNewPost(credentials)
 				.then(response => {
 					console.log('createNewPost response', response);
-
 					resolve();
 				})
 		})

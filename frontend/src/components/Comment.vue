@@ -3,7 +3,6 @@
     {{ comment.username }}<br />
     <br />
     <div class="d-flex align-items-center justify-content-around">
-
       <!--Bouton Admine supprime commentaires -->
       <div class="row">
         <div class="col-12 col-lg-12" v-if="mycomment">
@@ -48,7 +47,8 @@
     </div>
     <br />
 
-    {{ comment.createdAt }} {{ comment.updatedAt }}<br /><br />
+    Créé le: {{ creationDate }}<br />
+    Modifié le: {{ modificationDate }}<br /><br />
     <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
     {{ comment.comment }}<br />
   </li>
@@ -59,6 +59,7 @@ import { mapState } from "vuex"; // On recupere tous les states
 import adminApi from "../api/admin"; // On communique avec le Back End
 import OldComment from "./AddNewComment.vue"; // On se sert du modele de AddNewComment
 import commentApi from "../api/comment"; // On communique avec le Back End
+import dateTimeFormat from "../helpers/date";
 
 export default {
   props: {
@@ -79,20 +80,28 @@ export default {
     ...mapState({
       isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
     }),
+
+    creationDate() {
+      return dateTimeFormat(this.comment.createdAt);
+    },
+
+    modificationDate() {
+      return dateTimeFormat(this.comment.updatedAt);
+    },
   },
   methods: {
-
     // Commentaires
 
     // Suppression par l'utilisateur
     deleteComment() {
       adminApi.deleteUserComment(this.comment.id).then(() => {
         // on genere l evenement
-        this.$emit("adminDeleteComment"); 
+        this.$emit("adminDeleteComment");
       });
     },
 
     // Actions universelles pour ouvrir/fermer une fenetre modale
+
     openModal() {
       this.isOpen = true;
     },

@@ -4,21 +4,23 @@
       <!--Fenêtre chargante la navigation-->
       <Navigation /><br />
 
-      <h1>Bienvenue {{ $store.state.auth.username }}</h1>
+      <h1 class="d-flex align-items-center justify-content-center">Bienvenue {{ $store.state.auth.username }}</h1>
       <br />
 
       <!--Fenêtre chargante nouveau comment-->
       <div class="row">
-        <div class="col-12 col-lg-12">
+        <div class="col-12 col-lg-12 d-flex align-items-center justify-content-center">
           <AddNewPost
             v-if="isOpen"
             @back="closeModal"
             @sendPostData="onPostCreated"
           />
           <!-- false au depart et true apres method -->
+
           <button @click="openModal" type="button" class="btn btn-success">
             Ajouter un nouveau post
           </button>
+        
         </div>
       </div>
     </div>
@@ -87,6 +89,7 @@ export default {
       this.getPosts();
     },
   },
+  // on 
   mounted() {
     if (this.$store.state.auth.user === null) {
       return this.$router.push("/");

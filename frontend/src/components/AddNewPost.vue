@@ -6,6 +6,8 @@
           <h1>{{ $store.state.auth.username }}</h1>
         </div>
       </div>
+
+      <!--Contenu de la fenetre modale-->
       <form v-on:submit="addNewPost">
         <div class="mb-3">
           <label for="exampleInputTitle" class="form-label">Titre</label>
@@ -41,19 +43,19 @@
             required
           />
         </div>
+
+        <!--Bouton Poster-->
         <div class="row">
           <div class="col-12 col-lg-12">
             <button type="submit" class="btn btn-info">Poster</button>
-            <!-- au click on appel la methode Submit
-	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           </div>
+
+          <!--Bouton Retour-->
           <div class="col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
-            <app-error :error="error" v-if="error" />
-            <!-- au click on appel la methode Submit
-	on doit vérifier l'attribut disable grace à la variable isSubmitting -->
+
           </div>
         </div>
       </form>
@@ -62,7 +64,7 @@
 </template>
 
 <script>
-import AppError from "@/components/Error";
+
 export default {
   name: "AddNewPost", // nom de la page
   computed: {
@@ -70,11 +72,10 @@ export default {
       // variable interactive de submutting sous forme de fonction
       return this.$store.state.post.isSubmittingPost; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting
     },
-    error() {
-      return this.$store.state.auth.error; // l.22 dans modules auth (local erreur fait appel a globale error)
-    },
+
   },
   methods: {
+    // Creation d'un nouveau post
     addNewPost() {
       this.$emit("sendPostData", {
         userId: this.$store.state.auth.userId,
@@ -85,8 +86,9 @@ export default {
       });
     },
   },
+  // Le composant doit recevoir des props de Post.vue de Oldpost
   props: {
-    defaultTitle: {
+    defaultTitle: { 
       default: "",
     },
     defaultContent: {
@@ -97,19 +99,16 @@ export default {
     },
     postId: {},
   },
-  data() {
-    console.log("default title value", this.defaultTitle);
+  data() { // La valeur des datas est prise dans les props
+    // console.log("default title value", this.defaultTitle);
     return {
       title: this.defaultTitle,
       attachement: this.defaultAttachement,
-      content: this.defaultContent,   
+      content: this.defaultContent,
     };
   },
-  mounted() {
-    console.log(this.$store.state);
-  },
+
   components: {
-    AppError,
   },
 };
 </script>

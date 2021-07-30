@@ -36,18 +36,18 @@
             required
           />
         </div>
-        <!-- <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div> -->
+
+        <!-- Bouton Valider -->
         <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
           <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
           Valider
         </button>
+
         <!-- nom de notre module -->
         <app-error :error="error" v-if="error" />
         <!-- nom attribut error donne le nom de la varainte locale -->
+      
       </form>
     </div>
   </div>

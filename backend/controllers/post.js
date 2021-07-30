@@ -126,16 +126,23 @@ exports.getOnePost = (req, res, next) => {
 exports.getAllPosts = (req, res, next) => {
 	Post.findAll()
 		.then((posts) => {
+			// on fait une copie de l'objet
 			const copyPosts = [...posts];
+			// on cherche tous les utilisateurs
 			User.findAll().then((users) => {
+				// cycle de copyPost
 				for (const post of copyPosts) {
+					// pour chaque post on prend tous les users
 					for (const user of users) {
+						// on compare l'id user avec l'id du post
 						if (user.id === post.idUSERS) {
+							// on ajoute a post d'objet username
 							post.username = user.username;
 							break;
 						}
 					}
 				}
+				// On crée un nouveau massif avec ces données
 				const newMapPosts = copyPosts.map((copyPost) => {
 					return {
 						idUSERS: copyPost.idUSERS,
@@ -144,14 +151,13 @@ exports.getAllPosts = (req, res, next) => {
 						attachement: copyPost.attachement,
 						username: copyPost.username,
 						createdAt: copyPost.createdAt,
+						updatedAt: copyPost.updatedAt,
 						id: copyPost.id
 					}
 				})
+				// On envoie les données
 				res.status(200).json({
 					posts: newMapPosts
-				})
-				res.status(200).json({
-					posts: copyPosts
 				})
 			})
 		})

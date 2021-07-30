@@ -20,17 +20,19 @@
             required
           />
         </div>
-        <div class="row">
-          <!--Bouton validant ajout d'un commentaire-->
+
+        <!--Bouton validant ajout d'un commentaire-->
+        <div class="row"> 
           <div class="col-12 col-lg-12">
             <button type="submit" class="btn btn-info">Envoyer mon commentaire</button>
           </div>
+
           <!--Bouton retour emitant-->
           <div class="col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
-            <app-error :error="error" v-if="error" />
+
           </div>
         </div>
       </form>
@@ -39,7 +41,7 @@
 </template>
 
 <script>
-import AppError from "@/components/Error";
+
 export default {
   name: "AddNewComment", // nom de la page
   computed: {
@@ -47,40 +49,34 @@ export default {
       // variable interactive de submutting sous forme de fonction
       return this.$store.state.post.isSubmittingPost; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting
     },
-    error() {
-      return this.$store.state.auth.error; // l.22 dans modules auth (local erreur fait appel a globale error)
-    },
   },
   methods: {
+    // Ajour d'un nouveau comment
     addNewComment() {
       this.$emit("sendCommentData", { // envoie les données
         userId: Number(this.$store.state.auth.userId),
-        postId: this.postId,
-        comment: this.comment,
-        commentId: this.commentId,
+        postId: this.postId, // post au quel on ajoute le commentaire // on capte les données de props
+        comment: this.comment, // on capte de l'imput
+        commentId: this.commentId, // on capte les données de props
       });
     },
   },
-  data() {
+  data() { // on prend des props
     return {
       comment: this.defaultComment, // on recoit des props
     };
   },
 
   components: {
-    AppError,
   },
   props: {  // on recoit les données des autres composants
     postId: {},
     defaultComment: {
       default: "",
     },
-    commentId: {},
+    commentId: {}, // ici arrive l'arrive l'id du commentaire que quand se composant s'utilise pour la redaction du commentaire
   },
   
-  mounted() {
-    console.log(this.$store.state);
-  },
 };
 </script>
 

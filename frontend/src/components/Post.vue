@@ -5,14 +5,16 @@
         <div class="card">
           <div class="card-body">
             <p class="card-text">{{ post.username }}</p>
-            <p class="card-text">{{ post.createdAt }}</p>
-            <p class="card-text">{{ post.updatedAt }}</p>
+            <p class="card-text">Créé le: {{ creationPostDate }}</p>
+            <p class="card-text">Modifié le: {{ modificationPostDate  }}</p>
             <div class="row">
 
               <!--Fenêtre chargante nouveau comment-->
+              <!-- : => v-bind => props -->
+              <!-- @ => v-on => evenement-->
               <AddNewComment
                 v-if="isOpen"
-                v-bind:postId="post.id"
+                :postId="post.id"
                 @back="closeModal"
                 @sendCommentData="onCommentCreated"
               />
@@ -43,6 +45,10 @@
                 </div>
 
                 <!--Fenetre chargant vieux post-->
+                <!--A l'interieur on met defaultTitle defaultContent defaultAttachement-->
+                <!--A l'interieur il y a les données du vieux post qu'il faut changer-->
+                <!--DefaultAttachement(props) recoit données qui sont dans post.Vue-->
+                <!--Evenment sendPostData envoi données -->
                 <OldPost
                   v-if="postIsEdited"
                   :defaultTitle="post.title"
@@ -82,7 +88,6 @@
             </div>
 
             <!--Autres data du post-->
-            <p class="card-text">{{ post.updatedAt }}</p>
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.content }}</p>
             <div class="d-flex justify-content-center">
@@ -115,6 +120,7 @@
 
           <!--Si commentaires presents affichage de la liste -->
           <ul v-if="commentsIsShow && comments !== null" class="list-group">
+            <!--key est utilisé pour cycle dans vue pour faire differencer les elements dans les cycles-->
             <Comment
               v-for="comment of comments"
               :key="comment.id"
@@ -140,13 +146,16 @@ import AddNewComment from "./AddNewComment.vue";
 import { mapState } from "vuex";
 import OldPost from "./AddNewPost.vue";
 import postApi from "../api/post";
+import dateTimeFormat from"../helpers/date"
 
 export default {
   name: "Post",
   data() {
     return {
+      // Pour creation OldPost controle si le post existe
       postIsEdited: false,
       comments: null,
+      // quand on appuie sur Show comments devient true
       commentsIsShow: false,
       // Les v-if sont par defaut a false
       isOpen: false,
@@ -174,6 +183,15 @@ export default {
     ...mapState({
       isAdmin: (state) => state.auth.user.isAdmin, 
     }),
+
+    creationPostDate(){
+      return dateTimeFormat(this.post.createdAt)
+    },
+
+    modificationPostDate(){
+    return dateTimeFormat(this.post.updatedAt)
+    },
+
   },
   methods: {
 
@@ -235,8 +253,9 @@ export default {
       this.commentsIsShow = !this.commentsIsShow;
     },
 
-    // Création d'un comment
+    // Création d'un comment suite au click sur @sendCommentData dans AddNewComment
     onCommentCreated(commentData) {
+      // on appelle l'action du store
       this.$store.dispatch("createNewComment", commentData).then(() => {
         // Mise a jour des comments
         this.getComments();

@@ -7,7 +7,9 @@
           alt="Logo de l'entreprise"
         />
       </div>
-      <a class="navbar-brand" href="#">GROUPOMANIA VOUS ATTENDAIT</a>
+      <div class="message">
+        <a class="navbar-brand" href="#">GROUPOMANIA VOUS ATTENDAIT</a>
+      </div>
       <div class="container">
         <div class="d-flex align-items-center justify-content-around">
           <div class="row">
@@ -62,4 +64,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.message{
+  text-align: center;
+  width: 100%;
+}
+.message a{
+  white-space: normal;
+}
+</style>
 
