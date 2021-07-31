@@ -53,6 +53,8 @@ export default {
     };
   },
   methods: {
+
+    // Actions universelles pour ouvrir/fermer une fenetre modale
     openModal() {
       console.log(this.isOpen); // false
       this.isOpen = true;
@@ -61,38 +63,47 @@ export default {
     closeModal() {
       this.isOpen = false;
     },
+
+    // Actions création de post
     onPostCreated(postData) {
       this.$store.dispatch("createNewPost", postData).then(() => {
         this.getPosts();
         this.closeModal();
       });
     },
+
+    // Suite suppresion post
     onPostDeleted() {
       console.log("onPostDeleted");
       this.getPosts();
     },
+
+    // Recuperer les posts
     getPosts() {
       this.$store.dispatch("post/getPosts");
     },
+
+    // Suite modifications posts
     onModifyPost() {
       this.getPosts();
     },
 
+    // Suite suppresion comment
     onCommentDeleted() {
       console.log("onCommentDeleted");
       this.getPosts();
     },
+
+    // Suite suppresion post par Admin
     onAdminDeletePost() {
       console.log("onAdminDeletePost");
       this.getPosts();
     },
   },
-  // on
   mounted() {
     if (this.$store.state.auth.user === null) {
       return this.$router.push("/");
     }
-
     this.getPosts();
   },
 };

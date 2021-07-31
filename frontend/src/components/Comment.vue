@@ -28,8 +28,6 @@
               </button>
             </div>
 
-            <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
-
             <!--Chargement fentetre modale pour modifier son commentaire -->
             <OldComment
               v-if="isOpen"
@@ -41,7 +39,6 @@
             />
 
             <!--Bouton user supprime son commentaire -->
-
             <div
               class="col-12 col-lg-4 d-flex justify-content-center"
               v-if="mycomment"
@@ -56,7 +53,6 @@
             </div>
 
             <!--Bouton Admine supprime commentaires -->
-
             <div
               class="col-12 col-lg-4 d-flex justify-content-center"
               v-if="isAdmin"
@@ -100,6 +96,7 @@ export default {
       isAdmin: (state) => state.auth.user.isAdmin, // on creer la propriete isAdmin qui va chercher true or false dans objet user
     }),
 
+    // managment du temps comment
     creationDate() {
       return dateTimeFormat(this.comment.createdAt);
     },

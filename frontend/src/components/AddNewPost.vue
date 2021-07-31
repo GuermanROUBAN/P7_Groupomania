@@ -21,16 +21,6 @@
           />
           <div id="Titre du post" class="form-text"></div>
         </div>
-        <!-- <div class="mb-3">
-          <label for="exampleInputContent" class="form-label">Contenu</label>
-          <input
-            v-model="content"
-            type="text"
-            class="form-control"
-            id="exampleInputContent"
-            required
-          />
-        </div> -->
 
         <div class="form-group">
           <label for="exampleInputContent" class="form-label">Contenu</label>      
