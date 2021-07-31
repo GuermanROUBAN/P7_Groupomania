@@ -16,8 +16,14 @@
                   >Modifié le: {{ modificationPostDate }}</span
                 >
               </p>
+            </div>            <!--Autres data du post-->
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <div class="d-flex justify-content-center">
+              <!--Affichage image des caracteres-->
+              <img :src="post.attachement" />
             </div>
-            <div class="row">
+            <div class="row d-flex justify-content-center">
               <!--Fenêtre chargante nouveau comment-->
               <!-- : => v-bind => props -->
               <!-- @ => v-on => evenement-->
@@ -29,7 +35,7 @@
               />
 
               <!--Bouton ajouter mon comment-->
-              <div class="col-12 col-lg-12 d-flex justify-content-center">
+              <div class="col-12 col-lg-8 d-flex justify-content-center">
                 <button
                   type="button"
                   class="btn btn-success"
@@ -40,69 +46,59 @@
               </div>
             </div>
 
-            <!--Bouton modifier mon post-->
-            <div class="d-flex align-items-center justify-content-end">
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="mypost">
-                  <button
-                    @click="modifyPost"
-                    type="button"
-                    class="btn btn-warning"
-                  >
-                    Modifier mon poste
-                  </button>
-                </div>
-
-                <!--Fenetre chargant vieux post-->
-                <!--A l'interieur on met defaultTitle defaultContent defaultAttachement-->
-                <!--A l'interieur il y a les données du vieux post qu'il faut changer-->
-                <!--DefaultAttachement(props) recoit données qui sont dans post.Vue-->
-                <!--Evenment sendPostData envoi données -->
-                <OldPost
-                  v-if="postIsEdited"
-                  :defaultTitle="post.title"
-                  :defaultContent="post.content"
-                  :defaultAttachement="post.attachement"
-                  :postId="post.id"
-                  @sendPostData="editPost"
-                  @back="closeModifyPostModal"
-                />
+            <div class="row d-flex justify-content-center">
+              <!--Bouton modifier mon post-->
+              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="mypost">
+                <button
+                  @click="modifyPost"
+                  type="button"
+                  class="btn btn-warning"
+                >
+                  Modifier mon poste
+                </button>
               </div>
 
+              <!--Fenetre chargant vieux post-->
+              <!--A l'interieur on met defaultTitle defaultContent defaultAttachement-->
+              <!--A l'interieur il y a les données du vieux post qu'il faut changer-->
+              <!--DefaultAttachement(props) recoit données qui sont dans post.Vue-->
+              <!--Evenment sendPostData envoi données -->
+              <OldPost
+                v-if="postIsEdited"
+                :defaultTitle="post.title"
+                :defaultContent="post.content"
+                :defaultAttachement="post.attachement"
+                :postId="post.id"
+                @sendPostData="editPost"
+                @back="closeModifyPostModal"
+              />
+
               <!--Bouton supprimer mon post-->
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="mypost">
-                  <button
-                    @click="deletePost"
-                    type="button"
-                    class="btn btn-danger"
-                  >
-                    Supprimer mon poste
-                  </button>
-                </div>
+
+              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="mypost">
+                <button
+                  @click="deletePost"
+                  type="button"
+                  class="btn btn-danger"
+                >
+                  Supprimer mon poste
+                </button>
               </div>
 
               <!--Bouton Admin supprime un post-->
-              <div class="row">
-                <div class="col-12 col-lg-12" v-if="isAdmin">
-                  <button
-                    @click="adminDeletePost"
-                    type="button"
-                    class="btn btn-info"
-                  >
-                    Admin sup. post
-                  </button>
-                </div>
+
+              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="isAdmin">
+                <button
+                  @click="adminDeletePost"
+                  type="button"
+                  class="btn btn-info"
+                >
+                  Admin sup. post
+                </button>
               </div>
             </div>
 
-            <!--Autres data du post-->
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <div class="d-flex justify-content-center">
-              <!--Affichage image des caracteres-->
-              <img :src="post.attachement" />
-            </div>
+
           </div>
 
           <!--Bouton afficher/masquer les commentaires -->
