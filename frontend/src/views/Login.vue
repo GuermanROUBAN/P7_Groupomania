@@ -120,6 +120,8 @@ export default {
 
 
 <style>
+
+
 .champs {
   margin: auto;
 }

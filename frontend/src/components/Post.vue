@@ -23,7 +23,7 @@
               <!--Affichage image des caracteres-->
               <img :src="post.attachement" alt="image du post"/>
             </div>
-            <div class="row d-flex justify-content-center">
+            <div class="row-comment d-flex justify-content-center">
               <!--Fenêtre chargante nouveau comment-->
               <!-- : => v-bind => props -->
               <!-- @ => v-on => evenement-->
@@ -102,7 +102,7 @@
           </div>
 
           <!--Bouton afficher/masquer les commentaires -->
-          <div class="row d-flex justify-content-center">
+          <div class="row-show-comment d-flex justify-content-center">
             <div class="col-12 col-lg-8 d-flex justify-content-center" v-if="seeComments">
               <button
                 v-if="!commentsIsShow"
@@ -321,9 +321,8 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-.card-body {
-  background-color: lightskyblue;
-}
+
+
 
 .btn {
   margin: 20px;
@@ -342,10 +341,15 @@ export default {
 .dates {
   font-size: 0.8rem;
   font-style: italic;
+  margin-right: 10px;
 }
 
 img {
   max-height: 400px;
   max-width: 100%;
+}
+
+.row-show-comment{
+  background: lightslategrey;
 }
 </style>

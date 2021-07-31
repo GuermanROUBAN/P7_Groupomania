@@ -48,8 +48,14 @@ export default {
  
 }
 
-h1{
-  font-weight: bold;
+body {
+  background-image: url("https://note256.files.wordpress.com/2014/01/evernote-background-color.png");
+}
+
+h1 {
+  align-content: center;
+  color: #454545;
+  font-weight: 600;font-weight: bold;
 }
 
 .banner-logo {
