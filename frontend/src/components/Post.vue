@@ -21,7 +21,7 @@
             <p class="card-text">{{ post.content }}</p>
             <div class="d-flex justify-content-center">
               <!--Affichage image des caracteres-->
-              <img :src="post.attachement" />
+              <img :src="post.attachement" alt="image du post"/>
             </div>
             <div class="row d-flex justify-content-center">
               <!--Fenêtre chargante nouveau comment-->
@@ -41,20 +41,20 @@
                   class="btn btn-success"
                   @click="openModal"
                 >
-                  Ajouter un commentaire
+                  Ajouter commentaire
                 </button>
               </div>
             </div>
 
             <div class="row d-flex justify-content-center">
               <!--Bouton modifier mon post-->
-              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="mypost">
+              <div class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center" v-if="mypost">
                 <button
                   @click="modifyPost"
                   type="button"
                   class="btn btn-warning"
                 >
-                  Modifier mon poste
+                  Modifier
                 </button>
               </div>
 
@@ -75,19 +75,19 @@
 
               <!--Bouton supprimer mon post-->
 
-              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="mypost">
+              <div class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center" v-if="mypost">
                 <button
                   @click="deletePost"
                   type="button"
                   class="btn btn-danger"
                 >
-                  Supprimer mon poste
+                  Supprimer
                 </button>
               </div>
 
               <!--Bouton Admin supprime un post-->
 
-              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="isAdmin">
+              <div class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center" v-if="isAdmin">
                 <button
                   @click="adminDeletePost"
                   type="button"

@@ -1,65 +1,76 @@
 <template>
-  <li class="list-group-item">
-    <p class="card-text">
-      Commenté par <span class="username">{{ comment.username }}</span>
-    </p>
-    <div class="champs-date">
-      <p class="card-text-date">
-        <span class="dates">Créé le: {{ creationDate }}</span>
-      </p>
-      <p class="card-text-data">
-        <span class="dates">Modifié le: {{ modificationDate }}</span>
-      </p>
+  <div class="container">
+    <div class="col-12 col-lg-12">
+      <div class="card">
+        <li class="list-group-item">
+          <p class="card-text">
+            Commenté par
+            <span class="username">{{ comment.username }}</span>
+          </p>
+          <div class="champs-date">
+            <p class="card-text-date">
+              <span class="dates">Créé le: {{ creationDate }}</span>
+            </p>
+            <p class="card-text-data">
+              <span class="dates">Modifié le: {{ modificationDate }}</span>
+            </p>
+          </div>
+          <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
+          <p class="card-text">{{ comment.comment }}</p>
+          <!--Bouton Admine supprime commentaires -->
+          <div class="row d-flex justify-content-center">
+            <div
+              class="col-12 col-lg-4 d-flex justify-content-center"
+              v-if="mycomment"
+            >
+              <button @click="openModal" type="button" class="btn btn-warning">
+                Modifier
+              </button>
+            </div>
+
+            <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
+
+            <!--Chargement fentetre modale pour modifier son commentaire -->
+            <OldComment
+              v-if="isOpen"
+              :defaultComment="comment.comment"
+              :commentId="comment.id"
+              :postId="postId"
+              @sendCommentData="editComment"
+              @back="closeModal"
+            />
+
+            <!--Bouton user supprime son commentaire -->
+
+            <div
+              class="col-12 col-lg-4 d-flex justify-content-center"
+              v-if="mycomment"
+            >
+              <button
+                @click="$emit('deleteComment', comment.id)"
+                type="button"
+                class="btn btn-danger"
+              >
+                Supprimer
+              </button>
+            </div>
+
+            <!--Bouton Admine supprime commentaires -->
+
+            <div
+              class="col-12 col-lg-4 d-flex justify-content-center"
+              v-if="isAdmin"
+            >
+              <!--si true-->
+              <button @click="deleteComment" type="button" class="btn btn-info">
+                Admin sup. commentaire
+              </button>
+            </div>
+          </div>
+        </li>
+      </div>
     </div>
-    <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
-    <p class="card-text">{{ comment.comment }}</p>
-    <div class="d-flex align-items-center justify-content-around">
-      <!--Bouton Admine supprime commentaires -->
-      <div class="row">
-        <div class="col-12 col-lg-12" v-if="mycomment">
-          <button @click="openModal" type="button" class="btn btn-warning">
-            Modifier mon commentaire
-          </button>
-        </div>
-
-        <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
-
-        <!--Chargement fentetre modale pour modifier son commentaire -->
-        <OldComment
-          v-if="isOpen"
-          :defaultComment="comment.comment"
-          :commentId="comment.id"
-          :postId="postId"
-          @sendCommentData="editComment"
-          @back="closeModal"
-        />
-      </div>
-
-      <!--Bouton user supprime son commentaire -->
-      <div class="row">
-        <div class="col-12 col-lg-12" v-if="mycomment">
-          <button
-            @click="$emit('deleteComment', comment.id)"
-            type="button"
-            class="btn btn-danger"
-          >
-            Supprimer mon commentaire
-          </button>
-        </div>
-      </div>
-
-      <!--Bouton Admine supprime commentaires -->
-      <div class="row">
-        <div class="col-12 col-lg-12" v-if="isAdmin">
-          <!--si true-->
-          <button @click="deleteComment" type="button" class="btn btn-info">
-            Admin sup. commentaire
-          </button>
-        </div>
-      </div>
-    </div>
-    <br />
-  </li>
+  </div>
 </template>
 
 <script>
@@ -134,7 +145,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss" scoped>
+.btn {
+  margin: 20px;
+  width: 60%;
+}
 .username {
   font-size: 1.2rem;
   font-style: italic;
