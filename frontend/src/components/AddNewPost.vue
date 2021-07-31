@@ -9,6 +9,7 @@
 
       <!--Contenu de la fenetre modale-->
       <form v-on:submit="addNewPost">
+    
         <div class="mb-3">
           <label for="exampleInputTitle" class="form-label">Titre</label>
           <input
@@ -16,7 +17,6 @@
             type="text"
             class="form-control"
             id="exampleInputTitle"
-            aria-describedby="Titre du post"
             required
           />
           <div id="Titre du post" class="form-text"></div>
@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <label for="exampleInputContent" class="form-label">Contenu</label>      
-          <abbr title="Parlez nous de vous">*</abbr>
+          <abbr title="Parlez nous de vous"></abbr>
           <textarea
             v-model="content"
             type="text"
@@ -62,12 +62,12 @@
 
         <!--Bouton Poster-->
         <div class="row">
-          <div class="col-12 col-lg-12">
+          <div class="btn-add-post col-12 col-lg-12">
             <button type="submit" class="btn btn-info">Poster</button>
           </div>
 
           <!--Bouton Retour-->
-          <div class="col-12 col-lg-12">
+          <div class="btn-add-post col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
@@ -135,5 +135,9 @@ export default {
   width: 100%;
   height: 100%;
   background: cadetblue;
+}
+
+.btn-add-post{
+  margin-bottom:10px;
 }
 </style>

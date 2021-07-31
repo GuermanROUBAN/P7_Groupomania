@@ -16,7 +16,7 @@
                   >Modifié le: {{ modificationPostDate }}</span
                 >
               </p>
-            </div>            <!--Autres data du post-->
+            </div>
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.content }}</p>
             <div class="d-flex justify-content-center">

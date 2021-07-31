@@ -10,7 +10,7 @@
 
       <form v-on:submit="addNewComment">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Comment</label>
+          <label for="exampleInputEmail1" class="form-label">Laissez votre commentaire</label>
           <!--v-model lie l input avec la data comment-->
           <textarea
             v-model="comment"
@@ -26,14 +26,14 @@
 
         <!--Bouton validant ajout d'un commentaire-->
         <div class="row">
-          <div class="col-12 col-lg-12">
+          <div class="btn-add-comment col-12 col-lg-12">
             <button type="submit" class="btn btn-info">
-              Envoyer mon commentaire
+              Envoyer
             </button>
           </div>
 
           <!--Bouton retour emitant-->
-          <div class="col-12 col-lg-12">
+          <div class="btn-add-comment col-12 col-lg-12">
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
@@ -84,7 +84,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .addNewComment {
   z-index: 2;
   position: fixed;
@@ -94,4 +94,9 @@ export default {
   height: 100%;
   background: rgb(124, 160, 95);
 }
+
+.btn-add-comment{
+  margin-bottom:10px;
+}
+
 </style>
