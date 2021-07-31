@@ -48,7 +48,7 @@
 
             <div class="row d-flex justify-content-center">
               <!--Bouton modifier mon post-->
-              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="mypost">
+              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="mypost">
                 <button
                   @click="modifyPost"
                   type="button"
@@ -75,7 +75,7 @@
 
               <!--Bouton supprimer mon post-->
 
-              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="mypost">
+              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="mypost">
                 <button
                   @click="deletePost"
                   type="button"
@@ -87,7 +87,7 @@
 
               <!--Bouton Admin supprime un post-->
 
-              <div class="col-12 col-lg-4 d-flex justify-content-center" v-if="isAdmin">
+              <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center" v-if="isAdmin">
                 <button
                   @click="adminDeletePost"
                   type="button"
@@ -102,8 +102,8 @@
           </div>
 
           <!--Bouton afficher/masquer les commentaires -->
-          <div class="row">
-            <div class="col-12 col-lg-12" v-if="seeComments">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-8 d-flex justify-content-center" v-if="seeComments">
               <button
                 v-if="!commentsIsShow"
                 @click="toggleComments"
