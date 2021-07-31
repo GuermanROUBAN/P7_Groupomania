@@ -7,24 +7,29 @@
         </div>
       </div>
       <!--le click genere methode addNewComment-->
+
       <form v-on:submit="addNewComment">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Comment</label>
           <!--v-model lie l input avec la data comment-->
-          <input  
-            v-model="comment" 
+          <textarea
+            v-model="comment"
             type="text"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="exampleInputComment"
+            name="user_ccomment"
+            rows="4"
+            cols="50"
             required
-          />
+          ></textarea>
         </div>
 
         <!--Bouton validant ajout d'un commentaire-->
-        <div class="row"> 
+        <div class="row">
           <div class="col-12 col-lg-12">
-            <button type="submit" class="btn btn-info">Envoyer mon commentaire</button>
+            <button type="submit" class="btn btn-info">
+              Envoyer mon commentaire
+            </button>
           </div>
 
           <!--Bouton retour emitant-->
@@ -32,7 +37,6 @@
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
-
           </div>
         </div>
       </form>
@@ -41,7 +45,6 @@
 </template>
 
 <script>
-
 export default {
   name: "AddNewComment", // nom de la page
   computed: {
@@ -53,7 +56,8 @@ export default {
   methods: {
     // Ajour d'un nouveau comment
     addNewComment() {
-      this.$emit("sendCommentData", { // envoie les données
+      this.$emit("sendCommentData", {
+        // envoie les données
         userId: Number(this.$store.state.auth.userId),
         postId: this.postId, // post au quel on ajoute le commentaire // on capte les données de props
         comment: this.comment, // on capte de l'imput
@@ -61,22 +65,22 @@ export default {
       });
     },
   },
-  data() { // on prend des props
+  data() {
+    // on prend des props
     return {
       comment: this.defaultComment, // on recoit des props
     };
   },
 
-  components: {
-  },
-  props: {  // on recoit les données des autres composants
+  components: {},
+  props: {
+    // on recoit les données des autres composants
     postId: {},
     defaultComment: {
       default: "",
     },
     commentId: {}, // ici arrive l'arrive l'id du commentaire que quand se composant s'utilise pour la redaction du commentaire
   },
-  
 };
 </script>
 

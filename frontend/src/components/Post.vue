@@ -7,12 +7,16 @@
             <p class="card-text">
               par <span class="username">{{ post.username }}</span>
             </p>
-            <p class="card-text">
-              <span class="dates">Créé le: {{ creationPostDate }}</span>
-            </p>
-            <p class="card-text">
-              <span class="dates">Modifié le: {{ modificationPostDate }}</span>
-            </p>
+            <div class="champs-date">
+              <p class="card-text-date">
+                <span class="dates">Créé le: {{ creationPostDate }}</span>
+              </p>
+              <p class="card-text-data">
+                <span class="dates"
+                  >Modifié le: {{ modificationPostDate }}</span
+                >
+              </p>
+            </div>
             <div class="row">
               <!--Fenêtre chargante nouveau comment-->
               <!-- : => v-bind => props -->
@@ -321,20 +325,22 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-
-
-.card-body{
+.card-body {
   background-color: lightskyblue;
 }
 
 .btn {
   margin: 20px;
-  width:60%;
+  width: 60%;
 }
 
 .username {
   font-size: 1.5rem;
   font-style: italic;
+}
+
+.champs-date {
+  display: flex;
 }
 
 .dates {

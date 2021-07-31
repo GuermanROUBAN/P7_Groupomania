@@ -15,7 +15,7 @@ const dateParts = date.split('/');
 
 	[dateParts[0], dateParts[1]];
 
-return `${dateParts.join('/')} ${time};`
+return `${dateParts.join('/')} ${time}`
 }
 
 export default dateTimeFormat

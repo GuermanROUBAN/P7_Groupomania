@@ -3,14 +3,14 @@
     <div>
       <!--Fenêtre chargante la navigation-->
       <Navigation />
-      <div class="banner d-flex justify-content-center" width="30">
+      <!-- <div class="banner d-flex justify-content-center" width="30">
         <img
           :src="require('/src/assets/equipe.jpeg')"
           alt="Logo de l'entreprise"
           style="width: 100%"
           height="80%"
         />
-      </div>
+      </div> -->
       <h1 class="d-flex align-items-center justify-content-center">
         Bienvenue {{ $store.state.auth.username }}
       </h1>

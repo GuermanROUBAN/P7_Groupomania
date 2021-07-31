@@ -21,7 +21,7 @@
           />
           <div id="Titre du post" class="form-text"></div>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="exampleInputContent" class="form-label">Contenu</label>
           <input
             v-model="content"
@@ -30,7 +30,23 @@
             id="exampleInputContent"
             required
           />
+        </div> -->
+
+        <div class="form-group">
+          <label for="exampleInputContent" class="form-label">Contenu</label>      
+          <abbr title="Parlez nous de vous">*</abbr>
+          <textarea
+            v-model="content"
+            type="text"
+            class="form-control"
+            id="exampleInputContent"
+            name="user_content"
+            rows="4"
+            cols="50"
+            required
+          ></textarea>
         </div>
+
         <div class="mb-3">
           <label for="exampleInputUrl" class="form-label"
             >Inserez ici l'url</label
@@ -55,7 +71,6 @@
             <button @click="$emit('back')" type="button" class="btn btn-danger">
               Retour
             </button>
-
           </div>
         </div>
       </form>
@@ -64,7 +79,6 @@
 </template>
 
 <script>
-
 export default {
   name: "AddNewPost", // nom de la page
   computed: {
@@ -72,7 +86,6 @@ export default {
       // variable interactive de submutting sous forme de fonction
       return this.$store.state.post.isSubmittingPost; // on s'adresse via vuex à son etat, son module auth et son champs isSubmitting
     },
-
   },
   methods: {
     // Creation d'un nouveau post
@@ -88,7 +101,7 @@ export default {
   },
   // Le composant doit recevoir des props de Post.vue de Oldpost
   props: {
-    defaultTitle: { 
+    defaultTitle: {
       default: "",
     },
     defaultContent: {
@@ -99,7 +112,8 @@ export default {
     },
     postId: {},
   },
-  data() { // La valeur des datas est prise dans les props
+  data() {
+    // La valeur des datas est prise dans les props
     // console.log("default title value", this.defaultTitle);
     return {
       title: this.defaultTitle,
@@ -108,8 +122,7 @@ export default {
     };
   },
 
-  components: {
-  },
+  components: {},
 };
 </script>
 

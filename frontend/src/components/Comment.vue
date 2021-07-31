@@ -1,7 +1,18 @@
 <template>
   <li class="list-group-item">
-    {{ comment.username }}<br />
-    <br />
+    <p class="card-text">
+      Commenté par <span class="username">{{ comment.username }}</span>
+    </p>
+    <div class="champs-date">
+      <p class="card-text-date">
+        <span class="dates">Créé le: {{ creationDate }}</span>
+      </p>
+      <p class="card-text-data">
+        <span class="dates">Modifié le: {{ modificationDate }}</span>
+      </p>
+    </div>
+    <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
+    <p class="card-text">{{ comment.comment }}</p>
     <div class="d-flex align-items-center justify-content-around">
       <!--Bouton Admine supprime commentaires -->
       <div class="row">
@@ -10,6 +21,8 @@
             Modifier mon commentaire
           </button>
         </div>
+
+        <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
 
         <!--Chargement fentetre modale pour modifier son commentaire -->
         <OldComment
@@ -46,11 +59,6 @@
       </div>
     </div>
     <br />
-
-    Créé le: {{ creationDate }}<br />
-    Modifié le: {{ modificationDate }}<br /><br />
-    <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
-    {{ comment.comment }}<br />
   </li>
 </template>
 
@@ -125,3 +133,21 @@ export default {
   },
 };
 </script>
+
+<style>
+.username {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+.champs-date {
+  display: flex;
+}
+.dates {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.card-text-date {
+  margin-right: 20px;
+}
+</style>
