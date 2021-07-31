@@ -9,7 +9,7 @@
       <button
         @click="openModal"
         type="button"
-        class="btn btn-success col-12 col-md-6 col-lg-3"
+        class="btn btn-success col-12 col-sm-6 col-md-6 col-lg-3"
       >
         Ajouter un nouveau post
       </button>

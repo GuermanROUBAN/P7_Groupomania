@@ -61,9 +61,8 @@ h1 {
 .banner-logo {
   height: 300px;
   width: 50%;
-  margin:auto;
+  margin: auto;
 }
-
 .btn{
   font-weight: bold;
 }
