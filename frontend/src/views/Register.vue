@@ -7,7 +7,7 @@
       />
     </div>
     <div>
-      <form v-on:submit="Submit">
+      <form v-on:submit.prevent="Submit">
         <div class="champs mb-3 w-75">
           <label for="exampleInputUsername" class="form-label"
             >Nom d'utilisateur</label

@@ -6,7 +6,7 @@
         alt="Logo de l'entreprise"
       />
     </div>
-    <form v-on:submit="Submit">
+    <form v-on:submit.prevent="Submit">
       <div class="champs mb-3 w-75">
         <label for="exampleInputEmail1" class="form-label"
           >Entrez votre email</label
