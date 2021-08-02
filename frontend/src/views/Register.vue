@@ -1,13 +1,7 @@
 <template>
   <div class="container">
     <div
-      class="
-        row
-        banner-logo
-        col-12 col-sm-6 col-lg-8
-        d-flex
-        justify-content-center
-      "
+      class="row banner-logo col-12 col col-lg-8 d-flex justify-content-center"
     >
       <img
         :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
@@ -141,6 +135,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.container {
+  margin-top: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
 .banner-logo {
   height: 300px;
   margin: auto;
@@ -168,8 +168,7 @@ export default {
 }
 
 .btn-validation {
-
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 </style>

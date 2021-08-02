@@ -1,57 +1,71 @@
 <template>
   <div class="container">
-    <div class="banner-logo d-flex justify-content-center">
+    <div
+      class="
+        row
+        banner-logo
+        col-12 col-lg-8
+        d-flex
+        justify-content-center
+        align-items-center
+      "
+    >
       <img
         :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
         alt="Logo de l'entreprise"
       />
     </div>
-    <form v-on:submit.prevent="Submit">
-      <div class="champs mb-3 w-75">
-        <label for="exampleInputEmail1" class="form-label"
-          >Entrez votre email</label
-        >
-        <input
-          v-model="email"
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          required
-        />
-        <div id="emailHelp" class="form-text">
-          Ne communiquez jamais votre mot de passe à quelqu'un
+    <div>
+      <form v-on:submit.prevent="Submit">
+        <div class="champs mb-3 w-75">
+          <label for="exampleInputEmail1" class="form-label"
+            >Entrez votre email</label
+          >
+          <input
+            v-model="email"
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            required
+          />
+          <div id="emailHelp" class="form-text">
+            Ne communiquez jamais votre mot de passe à quelqu'un
+          </div>
         </div>
-      </div>
-      <div class="champs mb-3 w-75">
-        <label for="exampleInputPassword1" class="form-label"
-          >Entrez votre mot de passe</label
-        >
-        <input
-          v-model="password"
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          aria-describedby="passwordHelp"
-          required
-        />
-      </div>
+        <div class="champs mb-3 w-75">
+          <label for="exampleInputPassword1" class="form-label"
+            >Entrez votre mot de passe</label
+          >
+          <input
+            v-model="password"
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            aria-describedby="passwordHelp"
+            required
+          />
+        </div>
 
-      <div class="btn-validation d-flex justify-content-center">
-        <!-- Bouton Valider -->
-        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-          <!-- au click on appel la methode Submit
+        <div class="btn-validation d-flex justify-content-center">
+          <!-- Bouton Valider -->
+          <button
+            type="submit"
+            class="btn btn-primary"
+            :disabled="isSubmitting"
+          >
+            <!-- au click on appel la methode Submit
 			on doit vérifier l'attribut disable grace à la variable isSubmitting -->
-          Valider
-        </button>
-      </div>
-      <!-- nom de notre module -->
-      <div class="message-error d-flex justify-content-center">
-        <app-error :error="error" v-if="error" />
-        <!-- nom attribut error donne le nom de la varainte locale -->
-      </div>
-    </form>
-  </div>
+            Valider
+          </button>
+        </div>
+        <!-- nom de notre module -->
+        <div class="message-error d-flex justify-content-center">
+          <app-error :error="error" v-if="error" />
+          <!-- nom attribut error donne le nom de la varainte locale -->
+        </div>
+      </form>
+  </div></div>
 </template>
 
 <script>
@@ -121,8 +135,19 @@ export default {
 
 <style lang="postcss" scoped>
 
+.container{
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-logo {
+
+  margin: auto;
+}
 .champs {
   margin: auto;
+  width:80%;
 }
 
 .form-label {
@@ -137,8 +162,8 @@ export default {
   font-style: italic;
 }
 
-.message-error{
-  color:#333333;
+.message-error {
+  color: #333333;
   font-weight: 900;
 }
 </style>

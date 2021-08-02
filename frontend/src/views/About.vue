@@ -1,20 +1,14 @@
 <template>
   <div class="container">
     <div
-      class="
-        row
-        banner-logo
-        col-12 col-sm-6 col-lg-8
-        d-flex
-        justify-content-center
-      "
+      class="row banner-logo col-12 col col-lg-8 d-flex justify-content-center"
     >
       <img
         :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
         alt="Logo de l'entreprise"
       />
 
-      <div class="d-flex justify-content-center text-center col-12 col-sm-12 ">
+      <div class="d-flex justify-content-center text-center col-12 col-sm-12">
         <h1>BIENVENUE DANS NOTRE RESEAU</h1>
       </div>
       <div class="d-flex justify-content-center text-center">
@@ -52,6 +46,13 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+
+.container{
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
 h1 {
   align-content: center;
   color: #454545;
