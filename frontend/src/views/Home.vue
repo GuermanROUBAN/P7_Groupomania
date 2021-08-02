@@ -109,6 +109,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+
+body {
+  background-image: url("https://note256.files.wordpress.com/2014/01/evernote-background-color.png");
+}
+
 </style>
 

@@ -119,8 +119,7 @@ export default {
 </script>
 
 
-<style>
-
+<style lang="postcss" scoped>
 
 .champs {
   margin: auto;
@@ -142,5 +141,4 @@ export default {
   color:#333333;
   font-weight: 900;
 }
-
 </style>

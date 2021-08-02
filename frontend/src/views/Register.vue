@@ -1,12 +1,18 @@
 <template>
   <div class="container">
-    <div class="banner-logo lg-6 d-flex justify-content-center">
+    <div
+      class="
+        row
+        banner-logo
+        col-12 col-sm-6 col-lg-8
+        d-flex
+        justify-content-center
+      "
+    >
       <img
         :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
         alt="Logo de l'entreprise"
       />
-    </div>
-    <div>
       <form v-on:submit.prevent="Submit">
         <div class="champs mb-3 w-75">
           <label for="exampleInputUsername" class="form-label"
@@ -50,7 +56,7 @@
           />
         </div>
 
-        <div class="btn-validation d-flex justify-content-center">
+        <div class="btn-validation">
           <!-- Bouton Valider -->
           <button
             type="submit"
@@ -63,7 +69,7 @@
           </button>
         </div>
         <!-- nom de notre module -->
-        <div class="message-error d-flex justify-content-center">
+        <div class="message-error">
           <app-error :error="error" v-if="error" />
           <!-- nom attribut error donne le nom de la varainte locale -->
         </div>
@@ -133,3 +139,37 @@ export default {
   },
 };
 </script>
+
+<style lang="postcss" scoped>
+.banner-logo {
+  height: 300px;
+  margin: auto;
+}
+
+.champs {
+  margin: auto;
+}
+
+.form-label {
+  color: #454545;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.form-text {
+  color: #454545;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.message-error {
+  color: #333333;
+  font-weight: 900;
+}
+
+.btn-validation {
+
+  display:flex;
+  justify-content: center;
+}
+</style>

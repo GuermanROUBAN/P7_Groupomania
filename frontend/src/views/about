@@ -1,0 +1,28 @@
+container {
+  height: auto;
+}
+
+h1 {
+  align-content: center;
+  color: #454545;
+  font-weight: 600;
+  font-weight: bold;
+}
+
+.banner-logo {
+  height: 300px;
+  margin: auto;
+}
+.btn {
+  font-weight: bold;
+}
+
+.btn-link {
+  color: #454545;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.actions {
+  margin-top: 40px;
+}

@@ -1,21 +1,29 @@
 <template>
   <div class="container">
-    <div class="banner-logo col-12 col-lg-12 d-flex justify-content-center text-center">
-      <img :src="require('/src/assets/icon-left-font-monochrome-white.svg')" alt="Logo de l'entreprise" />
-    </div>
-    <div class="row">
-      <div class="col-12 col-lg-12">
-        <div class="row">
-          <div class="about d-flex justify-content-center text-center">
-            <h1>BIENVENUE DANS NOTRE RESEAU</h1>
-          </div>
-          <div class="row">
-            <div class="actions col-12 col-lg-12 d-flex justify-content-around">
-              <router-link to="/login" class="btn-link btn-lg">Se connecter</router-link>
-              <router-link to="/register" class="btn-link btn-lg">S'inscrire</router-link>
-            </div>
-          </div>
-        </div>
+    <div
+      class="
+        row
+        banner-logo
+        col-12 col-sm-6 col-lg-8
+        d-flex
+        justify-content-center
+      "
+    >
+      <img
+        :src="require('/src/assets/icon-left-font-monochrome-white.svg')"
+        alt="Logo de l'entreprise"
+      />
+
+      <div class="d-flex justify-content-center text-center col-12 col-sm-12 ">
+        <h1>BIENVENUE DANS NOTRE RESEAU</h1>
+      </div>
+      <div class="d-flex justify-content-center text-center">
+        <router-link to="/login" class="btn-link btn-lg"
+          >Se connecter</router-link
+        >
+        <router-link to="/register" class="btn-link btn-lg"
+          >S'inscrire</router-link
+        >
       </div>
     </div>
   </div>
@@ -42,39 +50,29 @@ export default {
   },
 };
 </script>
-<style>
-.container {
-  height: auto;
- 
-}
 
-body {
-  background-image: url("https://note256.files.wordpress.com/2014/01/evernote-background-color.png");
-}
-
+<style lang="postcss" scoped>
 h1 {
   align-content: center;
   color: #454545;
-  font-weight: 600;font-weight: bold;
+  font-weight: 600;
+  font-weight: bold;
 }
 
 .banner-logo {
   height: 300px;
-  width: 50%;
   margin: auto;
 }
-.btn{
+.btn {
   font-weight: bold;
 }
 
-.btn-link{
-  color:#454545;
+.btn-link {
+  color: #454545;
   font-weight: 800;
-  font-size:2rem;
-} 
-
-.actions{
-  margin-top: 40px;
 }
 
+.actions {
+  margin-top: 40px;
+}
 </style> 
