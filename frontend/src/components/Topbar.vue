@@ -45,7 +45,7 @@ export default {
 
       if (isConfirm) {
         authApi // on contact endpoint dans auth
-          .deleteMyAccount(Number(this.$store.state.auth.userId))
+          .deleteMyAccount()
           .then(() => {
             this.logout();
           });

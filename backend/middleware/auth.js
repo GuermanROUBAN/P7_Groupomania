@@ -7,11 +7,12 @@ module.exports = (req, res, next) => {
     try {
         // On recoit l'id dans le TOKEN
         const token = req.headers.authorization;
+        console.log(token)
 
         const decodedToken = jwt.verify(token, `${process.env.TOKEN}`); // Decodage
-
+        console.log(decodedToken)
         const userId = decodedToken.userId; // On prend l'id dans le token et on le passe dans userId
-
+        console.log(userId)
         if (!userId)// on verifie si userId est présent => controle sur l'erreur
         {
             return res.status(500).json({ 'error': "User Id non trouvé" })

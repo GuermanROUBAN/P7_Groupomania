@@ -13,8 +13,8 @@ router.delete('/delete-post/:id', auth, adminCtrl.adminRemovePost); //
 // Supprimer un comment
 router.delete('/delete-comment/:id', auth, adminCtrl.adminRemoveComment); //
 
-// Supprimer un user
-router.delete('/delete-user/:id', auth, adminCtrl.adminRemoveUser); //
+// // Supprimer un user
+// router.delete('/delete-user/:id', auth, adminCtrl.adminRemoveUser); //
 
 // Exports
 module.exports = router;

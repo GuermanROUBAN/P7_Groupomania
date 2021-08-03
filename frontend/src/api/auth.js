@@ -29,8 +29,8 @@ function login(credentials) { // données pour entrer usename email password
 }
 
 // Supprimer un post: router.delete('/delete/:id', auth, userCtrl.deleteUser);
-function deleteMyAccount(userId) {
-	return axios.delete(`http://127.0.0.1:3000/api/auth/delete/${userId}`);
+function deleteMyAccount() {
+	return axios.delete(`http://127.0.0.1:3000/api/auth/delete/`);
 }
 
 // Exports

@@ -75,21 +75,21 @@ exports.adminRemoveComment = (req, res) => {
 	})
 }
 
-// L'admin supprime un utilisteur
-exports.adminRemoveUser = (req, res) => {
-	checkIfAdmin(req, res, function (result) {
-		//console.log("contrôle ADMIN " + result);
-		if (!result) {
-			res.status(404).json({ "error": "Accès uniquement administrateur !" })
-		} else {
-			User.destroy({
-				where: {
-					id: Number(req.params.id)// convertion string in number
-				}
-			})
-			res.status(200).json({
-				message: "User supprimé"
-			})
-		}
-	})
-}
+// // L'admin supprime un utilisteur
+// exports.adminRemoveUser = (req, res) => {
+// 	checkIfAdmin(req, res, function (result) {
+// 		//console.log("contrôle ADMIN " + result);
+// 		if (!result) {
+// 			res.status(404).json({ "error": "Accès uniquement administrateur !" })
+// 		} else {
+// 			User.destroy({
+// 				where: {
+// 					id: Number(req.params.id)// convertion string in number
+// 				}
+// 			})
+// 			res.status(200).json({
+// 				message: "User supprimé"
+// 			})
+// 		}
+// 	})
+// }

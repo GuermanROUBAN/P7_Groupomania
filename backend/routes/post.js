@@ -18,12 +18,12 @@ router.put('/:id', auth, postCtrl.modifyPost);
 router.delete('/delete/:id', auth, postCtrl.deletePost); //
 
 // On Récupère un post spécifique
-router.get('/read/:id', postCtrl.getOnePost) // auth inutile car pas besoin d'etre logé pour voir un post
+router.get('/read/:id', auth, postCtrl.getOnePost) // auth inutile car pas besoin d'etre logé pour voir un post
 
 // On va aller chercher la liste des posts dans la BD
-router.get('/read-all-posts', postCtrl.getAllPosts); //auth inutile car pas besoin d'etre logé pour voir tous les posts
+router.get('/read-all-posts', auth, postCtrl.getAllPosts); //auth inutile car pas besoin d'etre logé pour voir tous les posts
 
-router.get('/users-posts/:id', postCtrl.getAllPostForUser);
+// router.get('/users-posts/:id', postCtrl.getAllPostForUser);
 
 // Exports
 module.exports = router;

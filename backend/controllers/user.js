@@ -87,10 +87,12 @@ exports.login = (req, res, next) => { // on exporte la fonction vers route
 
 // Supprimer un utilisateur
 exports.deleteUser = async (req, res, next) => { // on exporte la fonction vers route delete
+	console.log(req.body.userId)
 	try {
 		User.destroy({ // Delete multiple instances
+			
 			where: {
-				id: Number(req.params.id)// convertion string in number
+				id: Number(req.body.userId)// convertion string in number
 			}
 		})
 		return res.status(200).send({
