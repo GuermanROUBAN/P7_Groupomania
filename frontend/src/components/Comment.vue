@@ -2,12 +2,11 @@
   <div class="container">
     <div class="col-12 col-lg-12">
       <div class="card">
-        <li class="list-group-item">
           <p class="card-text">
             Commenté par
             <span class="username">{{ comment.username }}</span>
           </p>
-          <div class="champs-date">
+          <div class="champs-date col-12  col-sm-8">
             <p class="card-text-date">
               <span class="dates">Créé le: {{ creationDate }}</span>
             </p>
@@ -18,6 +17,7 @@
           <!-- le comment vient de la Bdd est chaque comment a un champ pour le texte du commentaire-->
           <p class="card-text">{{ comment.comment }}</p>
           <!--Bouton Admine supprime commentaires -->
+          
           <div class="row d-flex justify-content-center">
             <div
               class="col-12 col-lg-4 d-flex justify-content-center"
@@ -63,7 +63,6 @@
               </button>
             </div>
           </div>
-        </li>
       </div>
     </div>
   </div>
@@ -144,8 +143,8 @@ export default {
 
 <style lang="postcss" scoped>
 .btn {
-  margin: 20px;
-  width: 60%;
+  margin: 15px;
+  width: 65%;
 }
 .username {
   font-size: 1.2rem;
