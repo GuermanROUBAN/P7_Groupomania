@@ -9,7 +9,6 @@
 
       <!--Contenu de la fenetre modale-->
       <form v-on:submit="addNewPost">
-    
         <div class="mb-3">
           <label for="exampleInputTitle" class="form-label">Titre</label>
           <input
@@ -23,7 +22,7 @@
         </div>
 
         <div class="form-group">
-          <label for="exampleInputContent" class="form-label">Contenu</label>      
+          <label for="exampleInputContent" class="form-label">Contenu</label>
           <abbr title="Parlez nous de vous"></abbr>
           <textarea
             v-model="content"
@@ -69,6 +68,8 @@
 </template>
 
 <script>
+const validUrl = require("valid-url");
+
 export default {
   name: "AddNewPost", // nom de la page
   computed: {
@@ -80,15 +81,21 @@ export default {
   methods: {
     // Creation d'un nouveau post
     addNewPost() {
-      this.$emit("sendPostData", {
-        userId: this.$store.state.auth.userId,
-        title: this.title,
-        content: this.content,
-        attachement: this.attachement,
-        postId: this.postId,
-      });
+      console.log(this.attachement);
+      if (validUrl.isUri(this.attachement)) {
+        this.$emit("sendPostData", {
+          userId: this.$store.state.auth.userId,
+          title: this.title,
+          content: this.content,
+          attachement: this.attachement,
+          postId: this.postId,
+        });
+      } else {
+        alert("Veilliez saisir un URL valable");
+      }
     },
   },
+
   // Le composant doit recevoir des props de Post.vue de Oldpost
   props: {
     defaultTitle: {
@@ -127,7 +134,7 @@ export default {
   background: cadetblue;
 }
 
-.btn-add-post{
-  margin-bottom:10px;
+.btn-add-post {
+  margin-bottom: 10px;
 }
 </style>
